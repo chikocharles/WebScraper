@@ -94,7 +94,12 @@ def get_total_pages(soup):
 
 def scrape_page(url, page_num=1):
     """Scrape jobs from a specific page."""
-    page_url = f"{url}?page={page_num}" if page_num > 1 else url
+    if page_num > 1:
+        # Check if URL already has parameters
+        separator = "&" if "?" in url else "?"
+        page_url = f"{url}{separator}page={page_num}"
+    else:
+        page_url = url
     
     try:
         logging.info(f"Scraping page {page_num}: {page_url}")
@@ -151,7 +156,7 @@ def scrape_jobs():
     logging.info("Starting comprehensive job scraping...")
     print("Starting comprehensive job scraping...")
     
-    base_url = "https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&"
+    base_url = "https://vacancymail.co.zw/jobs/?ordering=later"
     all_jobs_data = []
     
     try:
@@ -172,7 +177,7 @@ def scrape_jobs():
             print("Searching for additional pages...")
             
             page_num = 2
-            while page_num <= 30:  # Safety limit of 20 pages
+            while page_num <= 50:  # Increased safety limit since there might be more pages with ordering=later
                 time.sleep(1)
                 page_jobs, page_soup = scrape_page(base_url, page_num)
                 

@@ -280,3 +280,23 @@
 2025-08-07 00:45:20,057 - INFO - Data saved to scraped_data_20250807_004520.csv at 2025-08-07 00:45:20.057662
 2025-08-07 00:45:20,058 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
 2025-08-07 00:45:20,058 - INFO - Top locations: {'Harare': 84, 'Chipinge': 24, 'Mutare': 12}
+2025-08-07 12:11:53,473 - INFO - Starting the web scraper...
+2025-08-07 12:11:53,473 - INFO - Starting comprehensive job scraping...
+2025-08-07 12:11:53,474 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/?ordering=later
+2025-08-07 12:11:55,163 - INFO - Scraping page 2: https://vacancymail.co.zw/jobs/?ordering=later&page=2
+2025-08-07 12:11:56,847 - INFO - Scraping page 3: https://vacancymail.co.zw/jobs/?ordering=later&page=3
+2025-08-07 12:11:58,520 - INFO - Scraping page 4: https://vacancymail.co.zw/jobs/?ordering=later&page=4
+2025-08-07 12:12:00,195 - INFO - Scraping page 5: https://vacancymail.co.zw/jobs/?ordering=later&page=5
+2025-08-07 12:12:01,876 - INFO - Scraping page 6: https://vacancymail.co.zw/jobs/?ordering=later&page=6
+2025-08-07 12:12:03,542 - INFO - Scraping page 7: https://vacancymail.co.zw/jobs/?ordering=later&page=7
+2025-08-07 12:12:05,202 - INFO - Scraping page 8: https://vacancymail.co.zw/jobs/?ordering=later&page=8
+2025-08-07 12:12:06,858 - INFO - Scraping page 9: https://vacancymail.co.zw/jobs/?ordering=later&page=9
+2025-08-07 12:12:08,526 - INFO - Scraping page 10: https://vacancymail.co.zw/jobs/?ordering=later&page=10
+2025-08-07 12:12:10,201 - INFO - Scraping page 11: https://vacancymail.co.zw/jobs/?ordering=later&page=11
+2025-08-07 12:12:11,872 - INFO - Scraping page 12: https://vacancymail.co.zw/jobs/?ordering=later&page=12
+2025-08-07 12:12:12,517 - INFO - Scraped 12 total pages
+2025-08-07 12:12:12,532 - INFO - Also saved as scraped_data.csv
+2025-08-07 12:12:12,533 - INFO - Successfully scraped 120 current jobs from 12 pages
+2025-08-07 12:12:12,534 - INFO - Data saved to scraped_data_20250807_121212.csv at 2025-08-07 12:12:12.533997
+2025-08-07 12:12:12,534 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 12:12:12,534 - INFO - Top locations: {'Harare': 90, 'Mutare': 5, 'Bindura': 4}
