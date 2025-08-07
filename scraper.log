@@ -300,3 +300,473 @@
 2025-08-07 12:12:12,534 - INFO - Data saved to scraped_data_20250807_121212.csv at 2025-08-07 12:12:12.533997
 2025-08-07 12:12:12,534 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
 2025-08-07 12:12:12,534 - INFO - Top locations: {'Harare': 90, 'Mutare': 5, 'Bindura': 4}
+2025-08-07 12:18:54,021 - INFO - Starting the web scraper...
+2025-08-07 12:18:54,022 - INFO - Starting comprehensive job scraping...
+2025-08-07 12:18:54,022 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/?ordering=later
+2025-08-07 12:18:54,730 - INFO - Found 10 job listings on page 1
+2025-08-07 12:18:54,733 - INFO - Page 1: 10 current jobs, 0 expired jobs
+2025-08-07 12:18:55,736 - INFO - Scraping page 2: https://vacancymail.co.zw/jobs/?ordering=later&page=2
+2025-08-07 12:18:56,473 - INFO - Found 10 job listings on page 2
+2025-08-07 12:18:56,477 - INFO - Page 2: 10 current jobs, 0 expired jobs
+2025-08-07 12:18:57,478 - INFO - Scraping page 3: https://vacancymail.co.zw/jobs/?ordering=later&page=3
+2025-08-07 12:18:58,189 - INFO - Found 10 job listings on page 3
+2025-08-07 12:18:58,194 - INFO - Page 3: 10 current jobs, 0 expired jobs
+2025-08-07 12:18:59,196 - INFO - Scraping page 4: https://vacancymail.co.zw/jobs/?ordering=later&page=4
+2025-08-07 12:18:59,856 - INFO - Found 10 job listings on page 4
+2025-08-07 12:18:59,858 - INFO - Page 4: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:00,860 - INFO - Scraping page 5: https://vacancymail.co.zw/jobs/?ordering=later&page=5
+2025-08-07 12:19:01,528 - INFO - Found 10 job listings on page 5
+2025-08-07 12:19:01,530 - INFO - Page 5: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:02,532 - INFO - Scraping page 6: https://vacancymail.co.zw/jobs/?ordering=later&page=6
+2025-08-07 12:19:03,195 - INFO - Found 10 job listings on page 6
+2025-08-07 12:19:03,197 - INFO - Page 6: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:04,198 - INFO - Scraping page 7: https://vacancymail.co.zw/jobs/?ordering=later&page=7
+2025-08-07 12:19:04,884 - INFO - Found 10 job listings on page 7
+2025-08-07 12:19:04,886 - INFO - Page 7: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:05,888 - INFO - Scraping page 8: https://vacancymail.co.zw/jobs/?ordering=later&page=8
+2025-08-07 12:19:06,589 - INFO - Found 10 job listings on page 8
+2025-08-07 12:19:06,592 - INFO - Page 8: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:07,594 - INFO - Scraping page 9: https://vacancymail.co.zw/jobs/?ordering=later&page=9
+2025-08-07 12:19:08,260 - INFO - Found 10 job listings on page 9
+2025-08-07 12:19:08,263 - INFO - Page 9: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:09,264 - INFO - Scraping page 10: https://vacancymail.co.zw/jobs/?ordering=later&page=10
+2025-08-07 12:19:09,919 - INFO - Found 10 job listings on page 10
+2025-08-07 12:19:09,924 - INFO - Page 10: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:10,926 - INFO - Scraping page 11: https://vacancymail.co.zw/jobs/?ordering=later&page=11
+2025-08-07 12:19:11,605 - INFO - Found 10 job listings on page 11
+2025-08-07 12:19:11,608 - INFO - Page 11: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:12,609 - INFO - Scraping page 12: https://vacancymail.co.zw/jobs/?ordering=later&page=12
+2025-08-07 12:19:13,266 - INFO - Found 10 job listings on page 12
+2025-08-07 12:19:13,268 - INFO - Page 12: 10 current jobs, 0 expired jobs
+2025-08-07 12:19:13,269 - INFO - Scraped 12 total pages
+2025-08-07 12:19:13,278 - INFO - Also saved as scraped_data.csv
+2025-08-07 12:19:13,280 - INFO - Successfully scraped 120 current jobs from 12 pages
+2025-08-07 12:19:13,280 - INFO - Data saved to scraped_data_20250807_121913.csv at 2025-08-07 12:19:13.280590
+2025-08-07 12:19:13,280 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 12:19:13,280 - INFO - Top locations: {'Harare': 86, 'Bindura': 6, 'Mutare': 6}
+2025-08-07 12:22:04,331 - INFO - Starting the web scraper...
+2025-08-07 12:22:04,331 - INFO - Starting comprehensive job scraping...
+2025-08-07 12:22:04,332 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/?ordering=later
+2025-08-07 12:22:05,012 - INFO - Found 10 job listings on page 1
+2025-08-07 12:22:05,016 - INFO - Page 1: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:05,019 - INFO - Detected maximum page number from pagination: 42
+2025-08-07 12:22:06,021 - INFO - Scraping page 2: https://vacancymail.co.zw/jobs/?ordering=later&page=2
+2025-08-07 12:22:06,702 - INFO - Found 10 job listings on page 2
+2025-08-07 12:22:06,704 - INFO - Page 2: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:07,705 - INFO - Scraping page 3: https://vacancymail.co.zw/jobs/?ordering=later&page=3
+2025-08-07 12:22:08,366 - INFO - Found 10 job listings on page 3
+2025-08-07 12:22:08,369 - INFO - Page 3: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:09,371 - INFO - Scraping page 4: https://vacancymail.co.zw/jobs/?ordering=later&page=4
+2025-08-07 12:22:10,046 - INFO - Found 10 job listings on page 4
+2025-08-07 12:22:10,048 - INFO - Page 4: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:11,049 - INFO - Scraping page 5: https://vacancymail.co.zw/jobs/?ordering=later&page=5
+2025-08-07 12:22:11,705 - INFO - Found 10 job listings on page 5
+2025-08-07 12:22:11,708 - INFO - Page 5: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:12,709 - INFO - Scraping page 6: https://vacancymail.co.zw/jobs/?ordering=later&page=6
+2025-08-07 12:22:13,400 - INFO - Found 10 job listings on page 6
+2025-08-07 12:22:13,404 - INFO - Page 6: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:14,405 - INFO - Scraping page 7: https://vacancymail.co.zw/jobs/?ordering=later&page=7
+2025-08-07 12:22:15,067 - INFO - Found 10 job listings on page 7
+2025-08-07 12:22:15,070 - INFO - Page 7: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:16,072 - INFO - Scraping page 8: https://vacancymail.co.zw/jobs/?ordering=later&page=8
+2025-08-07 12:22:16,723 - INFO - Found 10 job listings on page 8
+2025-08-07 12:22:16,725 - INFO - Page 8: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:17,727 - INFO - Scraping page 9: https://vacancymail.co.zw/jobs/?ordering=later&page=9
+2025-08-07 12:22:18,375 - INFO - Found 10 job listings on page 9
+2025-08-07 12:22:18,377 - INFO - Page 9: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:19,379 - INFO - Scraping page 10: https://vacancymail.co.zw/jobs/?ordering=later&page=10
+2025-08-07 12:22:20,028 - INFO - Found 10 job listings on page 10
+2025-08-07 12:22:20,030 - INFO - Page 10: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:21,031 - INFO - Scraping page 11: https://vacancymail.co.zw/jobs/?ordering=later&page=11
+2025-08-07 12:22:21,677 - INFO - Found 10 job listings on page 11
+2025-08-07 12:22:21,680 - INFO - Page 11: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:22,682 - INFO - Scraping page 12: https://vacancymail.co.zw/jobs/?ordering=later&page=12
+2025-08-07 12:22:23,346 - INFO - Found 10 job listings on page 12
+2025-08-07 12:22:23,349 - INFO - Page 12: 10 current jobs, 0 expired jobs
+2025-08-07 12:22:24,350 - INFO - Scraping page 13: https://vacancymail.co.zw/jobs/?ordering=later&page=13
+2025-08-07 12:22:25,018 - INFO - Found 10 job listings on page 13
+2025-08-07 12:22:25,022 - INFO - Skipping expired job: Security Guards (expires: Expires 06 Aug 2025)
+2025-08-07 12:22:25,023 - INFO - Skipping expired job: GRAPHIC DESIGNER (expires: Expires 06 Aug 2025)
+2025-08-07 12:22:25,023 - INFO - Page 13: 8 current jobs, 2 expired jobs
+2025-08-07 12:22:26,025 - INFO - Scraping page 14: https://vacancymail.co.zw/jobs/?ordering=later&page=14
+2025-08-07 12:22:26,689 - INFO - Found 10 job listings on page 14
+2025-08-07 12:22:26,690 - INFO - Skipping expired job: SALES REPRESENTATIVE (expires: Expires 06 Aug 2025)
+2025-08-07 12:22:26,691 - INFO - Skipping expired job: Accounts Intern (expires: Expires 06 Aug 2025)
+2025-08-07 12:22:26,691 - INFO - Skipping expired job: Excavator Operator (expires: Expires 06 Aug 2025)
+2025-08-07 12:22:26,692 - INFO - Skipping expired job: Hospitality Attachment (expires: Expires 05 Aug 2025)
+2025-08-07 12:22:26,692 - INFO - Skipping expired job: MARKETING AND PUBLIC RELATIONS TRAINEE OPPORTUNITY SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 12:22:26,693 - INFO - Skipping expired job: BRANCH SUPERVISOR (expires: Expires 05 Aug 2025)
+2025-08-07 12:22:26,693 - INFO - Skipping expired job: Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 12:22:26,694 - INFO - Skipping expired job: Communications Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 12:22:26,694 - INFO - Skipping expired job: Business Infrastructure Development Intern SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 12:22:26,694 - INFO - Skipping expired job: Nightclub Waitress/Bartender (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:26,694 - INFO - Page 14: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:27,696 - INFO - Scraping page 15: https://vacancymail.co.zw/jobs/?ordering=later&page=15
+2025-08-07 12:22:28,387 - INFO - Found 10 job listings on page 15
+2025-08-07 12:22:28,388 - INFO - Skipping expired job: DEVELOPMENT OF MUSASA STRATEGIC PLAN 2026-2029 (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,388 - INFO - Skipping expired job: Accounting Trainee (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,388 - INFO - Skipping expired job: Drivers (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,389 - INFO - Skipping expired job: Senior Loans Officer (Rusape) (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,389 - INFO - Skipping expired job: Debtors Clerk (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,390 - INFO - Skipping expired job: Assistant Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,390 - INFO - Skipping expired job: Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,390 - INFO - Skipping expired job: Cashier (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,390 - INFO - Skipping expired job: Sales Engineer (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,391 - INFO - Skipping expired job: Mining Contracts Manager (expires: Expires 04 Aug 2025)
+2025-08-07 12:22:28,391 - INFO - Page 15: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:29,393 - INFO - Scraping page 16: https://vacancymail.co.zw/jobs/?ordering=later&page=16
+2025-08-07 12:22:30,131 - INFO - Found 10 job listings on page 16
+2025-08-07 12:22:30,133 - INFO - Skipping expired job: SKILLS AUDIT (expires: Expires 03 Aug 2025)
+2025-08-07 12:22:30,134 - INFO - Skipping expired job: Credit Controller (expires: Expires 03 Aug 2025)
+2025-08-07 12:22:30,135 - INFO - Skipping expired job: Agronomist (expires: Expires 02 Aug 2025)
+2025-08-07 12:22:30,136 - INFO - Skipping expired job: Jeweller (expires: Expires 02 Aug 2025)
+2025-08-07 12:22:30,137 - INFO - Skipping expired job: Capentery Instructor (expires: Expires 02 Aug 2025)
+2025-08-07 12:22:30,137 - INFO - Skipping expired job: Sales and Marketing Officer : Freyt365 (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:30,138 - INFO - Skipping expired job: Sales Executive (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:30,139 - INFO - Skipping expired job: Apprenticeship Opportunity (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:30,139 - INFO - Skipping expired job: Finance Manager (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:30,140 - INFO - Skipping expired job: Students on Attachment (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:30,140 - INFO - Page 16: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:31,142 - INFO - Scraping page 17: https://vacancymail.co.zw/jobs/?ordering=later&page=17
+2025-08-07 12:22:31,826 - INFO - Found 10 job listings on page 17
+2025-08-07 12:22:31,827 - INFO - Skipping expired job: Finance Manager (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:31,828 - INFO - Skipping expired job: Sales and Marketing Officer : Freyt365 (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:31,830 - INFO - Skipping expired job: Accountant (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:31,831 - INFO - Skipping expired job: Gutter & Downpipe Fitter (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:31,833 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 01 Aug 2025)
+2025-08-07 12:22:31,833 - INFO - Skipping expired job: Group Legal Director (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:31,834 - INFO - Skipping expired job: JUNIOR IT HELPDESK TECHNICIAN (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:31,835 - INFO - Skipping expired job: Channel Development Lead (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:31,835 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:31,836 - INFO - Skipping expired job: Global Technical Senior Specialist – Nutrition (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:31,836 - INFO - Page 17: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:32,837 - INFO - Scraping page 18: https://vacancymail.co.zw/jobs/?ordering=later&page=18
+2025-08-07 12:22:33,504 - INFO - Found 10 job listings on page 18
+2025-08-07 12:22:33,504 - INFO - Skipping expired job: PLUMBER (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,505 - INFO - Skipping expired job: Loans Officers (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,505 - INFO - Skipping expired job: Assistant Radiographer (X1) (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,505 - INFO - Skipping expired job: Senior IT Systems Administrator (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,506 - INFO - Skipping expired job: Choir Master (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,506 - INFO - Skipping expired job: Chief Security Officer (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,506 - INFO - Skipping expired job: Invoicing Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,506 - INFO - Skipping expired job: Roller Operator (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,507 - INFO - Skipping expired job: Sports Director (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,507 - INFO - Skipping expired job: ERP Software Developer / Maintainer (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:33,507 - INFO - Page 18: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:34,508 - INFO - Scraping page 19: https://vacancymail.co.zw/jobs/?ordering=later&page=19
+2025-08-07 12:22:35,182 - INFO - Found 10 job listings on page 19
+2025-08-07 12:22:35,182 - INFO - Skipping expired job: ERP Software Developer / Maintainer (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,183 - INFO - Skipping expired job: Construction Site Foreman (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,184 - INFO - Skipping expired job: Digital Marketing Officer (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,184 - INFO - Skipping expired job: Senior IT Systems Administrator (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,184 - INFO - Skipping expired job: Business Unit Manager (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,185 - INFO - Skipping expired job: MANAGEMENT ACCOUNTANT (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,185 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,185 - INFO - Skipping expired job: Primary and Secondary School Teacher : Computer Aided Design (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,186 - INFO - Skipping expired job: Sports Director (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,186 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:35,186 - INFO - Page 19: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:36,187 - INFO - Scraping page 20: https://vacancymail.co.zw/jobs/?ordering=later&page=20
+2025-08-07 12:22:36,848 - INFO - Found 10 job listings on page 20
+2025-08-07 12:22:36,849 - INFO - Skipping expired job: English Teacher (Relief - 3 months) (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:36,849 - INFO - Skipping expired job: Property Sales and Admin Clerks (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:36,850 - INFO - Skipping expired job: Business Unit Manager (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:36,850 - INFO - Skipping expired job: CHIEF EXECUTIVE OFFICER (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:36,851 - INFO - Skipping expired job: International Logistics Administrator (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:36,851 - INFO - Skipping expired job: Digital Marketing Officer (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:36,852 - INFO - Skipping expired job: ARTISAN-CARPENTER (expires: Expires 31 Jul 2025)
+2025-08-07 12:22:36,852 - INFO - Skipping expired job: ATTACHMENT ( IT & GRAPHIC DESIGNING) (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:36,852 - INFO - Skipping expired job: Projects Manager (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:36,853 - INFO - Skipping expired job: Field Officer x 2 (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:36,853 - INFO - Page 20: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:37,854 - INFO - Scraping page 21: https://vacancymail.co.zw/jobs/?ordering=later&page=21
+2025-08-07 12:22:38,541 - INFO - Found 10 job listings on page 21
+2025-08-07 12:22:38,542 - INFO - Skipping expired job: ATTACHMENT ( IT & GRAPHIC DESIGNING) (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:38,542 - INFO - Skipping expired job: Graduate Trainee - Treasury (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:38,542 - INFO - Skipping expired job: Heavy Machinery Auto Mechanic (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:38,542 - INFO - Skipping expired job: Attachee-SHEQ (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:38,543 - INFO - Skipping expired job: Projects Manager (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:38,543 - INFO - Skipping expired job: Interns (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:38,544 - INFO - Skipping expired job: Executive Assistant (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:38,545 - INFO - Skipping expired job: Attachee-IT Office (expires: Expires 30 Jul 2025)
+2025-08-07 12:22:38,545 - INFO - Skipping expired job: IT Intern (expires: Expires 29 Jul 2025)
+2025-08-07 12:22:38,545 - INFO - Skipping expired job: IPC Team Lead (GBV) – Chitungwiza *1, Gweru *1, Mutare & Mbire *1 (Part-time) (expires: Expires 29 Jul 2025)
+2025-08-07 12:22:38,545 - INFO - Page 21: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:39,546 - INFO - Scraping page 22: https://vacancymail.co.zw/jobs/?ordering=later&page=22
+2025-08-07 12:22:40,238 - INFO - Found 10 job listings on page 22
+2025-08-07 12:22:40,239 - INFO - Skipping expired job: Electrocardiography (ECG) Technician – Harare *3 (Part-time) (expires: Expires 29 Jul 2025)
+2025-08-07 12:22:40,239 - INFO - Skipping expired job: Student Attachee – Sales and Marketing (Harare) (expires: Expires 29 Jul 2025)
+2025-08-07 12:22:40,239 - INFO - Skipping expired job: Tolling Driver (B1) x 3 (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:40,239 - INFO - Skipping expired job: Procurement Manager (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:40,239 - INFO - Skipping expired job: HEAD TECHNICIAN (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:40,240 - INFO - Skipping expired job: Operation Clerk (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:40,240 - INFO - Skipping expired job: ICT Assistant (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:40,240 - INFO - Skipping expired job: Site Agent (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:40,240 - INFO - Skipping expired job: Graduate Trainee Programme (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:40,240 - INFO - Skipping expired job: Tyre Controller (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:40,240 - INFO - Page 22: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:41,242 - INFO - Scraping page 23: https://vacancymail.co.zw/jobs/?ordering=later&page=23
+2025-08-07 12:22:41,941 - INFO - Found 10 job listings on page 23
+2025-08-07 12:22:41,941 - INFO - Skipping expired job: DEBTORS CLERK (expires: Expires 28 Jul 2025)
+2025-08-07 12:22:41,941 - INFO - Skipping expired job: Finance Intern (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,941 - INFO - Skipping expired job: Electrician (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,942 - INFO - Skipping expired job: Agronomy Attachees x2 (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,942 - INFO - Skipping expired job: Attaché Digital Marketing Officer (Rusape) (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,942 - INFO - Skipping expired job: Plumber (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,942 - INFO - Skipping expired job: Bookkeeper (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,942 - INFO - Skipping expired job: Administrator (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,943 - INFO - Skipping expired job: Marketing Intern (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,943 - INFO - Skipping expired job: Loss Control Officer (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:41,944 - INFO - Page 23: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:42,945 - INFO - Scraping page 24: https://vacancymail.co.zw/jobs/?ordering=later&page=24
+2025-08-07 12:22:43,604 - INFO - Found 10 job listings on page 24
+2025-08-07 12:22:43,604 - INFO - Skipping expired job: Training Officer (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:43,605 - INFO - Skipping expired job: Engineering Records Clerk (expires: Expires 27 Jul 2025)
+2025-08-07 12:22:43,605 - INFO - Skipping expired job: Financial Analysts ( Corporate Finance) (expires: Expires 26 Jul 2025)
+2025-08-07 12:22:43,606 - INFO - Skipping expired job: Graduate Trainees ( Corporate Finance ) x2 (expires: Expires 26 Jul 2025)
+2025-08-07 12:22:43,606 - INFO - Skipping expired job: ACCOUNTS INTERN (expires: Expires 26 Jul 2025)
+2025-08-07 12:22:43,607 - INFO - Skipping expired job: ELECTRICIAN AND PROPERTY MAINTENANCE (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:43,607 - INFO - Skipping expired job: Plantation Foresters (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:43,607 - INFO - Skipping expired job: Finance Attachee (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:43,608 - INFO - Skipping expired job: Procurement Attachee (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:43,608 - INFO - Skipping expired job: Designer and Web Developer (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:43,608 - INFO - Page 24: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:44,610 - INFO - Scraping page 25: https://vacancymail.co.zw/jobs/?ordering=later&page=25
+2025-08-07 12:22:45,304 - INFO - Found 10 job listings on page 25
+2025-08-07 12:22:45,305 - INFO - Skipping expired job: Assistant Electrician (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,305 - INFO - Skipping expired job: Machine Operator (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,306 - INFO - Skipping expired job: Human Resources intern (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,306 - INFO - Skipping expired job: Student on Attachment (CABS Hwange) (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,307 - INFO - Skipping expired job: Assistant Auto Electrician (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,307 - INFO - Skipping expired job: SALES CONSULTANT (BULAWAYO) (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,308 - INFO - Skipping expired job: DRIVER/MESSENGER (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,308 - INFO - Skipping expired job: CLEARING AND CUSTOMS  ADMINISTRATOR (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,309 - INFO - Skipping expired job: Digital Media Liaison Officer (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,309 - INFO - Skipping expired job: Intern - Supply Chain Management (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:45,309 - INFO - Page 25: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:46,311 - INFO - Scraping page 26: https://vacancymail.co.zw/jobs/?ordering=later&page=26
+2025-08-07 12:22:46,975 - INFO - Found 10 job listings on page 26
+2025-08-07 12:22:46,976 - INFO - Skipping expired job: Solutions and Services Manager (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:46,978 - INFO - Skipping expired job: Accountant (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:46,979 - INFO - Skipping expired job: Graduate trainee - Administration (expires: Expires 25 Jul 2025)
+2025-08-07 12:22:46,980 - INFO - Skipping expired job: Sales and Marketing Officer (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:46,980 - INFO - Skipping expired job: Marketing Assistant/ Front Office (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:46,981 - INFO - Skipping expired job: Finance Volunteer x 1 (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:46,981 - INFO - Skipping expired job: Community Development Volunteer X 2 (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:46,982 - INFO - Skipping expired job: Laboratory Supervisor (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:46,983 - INFO - Skipping expired job: Finance Graduate Intern (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:46,983 - INFO - Skipping expired job: HR & Administration Intern (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:46,983 - INFO - Page 26: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:47,985 - INFO - Scraping page 27: https://vacancymail.co.zw/jobs/?ordering=later&page=27
+2025-08-07 12:22:48,656 - INFO - Found 10 job listings on page 27
+2025-08-07 12:22:48,657 - INFO - Skipping expired job: Human Resources (HR) Officer (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:48,657 - INFO - Skipping expired job: Solar Projects Officer (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:48,657 - INFO - Skipping expired job: Legal and Compliance Officer (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:48,657 - INFO - Skipping expired job: Accounting Intern (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:48,658 - INFO - Skipping expired job: Information Technology Graduate Intern (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:48,658 - INFO - Skipping expired job: Public Affairs and Media Relations Specialist (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:48,658 - INFO - Skipping expired job: Sales Assistant (expires: Expires 24 Jul 2025)
+2025-08-07 12:22:48,658 - INFO - Skipping expired job: SALES REPRESENTATIVE (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:48,658 - INFO - Skipping expired job: Front End Loader (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:48,659 - INFO - Skipping expired job: HR Business Partner (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:48,659 - INFO - Page 27: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:49,660 - INFO - Scraping page 28: https://vacancymail.co.zw/jobs/?ordering=later&page=28
+2025-08-07 12:22:50,330 - INFO - Found 10 job listings on page 28
+2025-08-07 12:22:50,331 - INFO - Skipping expired job: RECEPTIONIST (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,331 - INFO - Skipping expired job: Sales and Marketing (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,331 - INFO - Skipping expired job: Manual forklift operator (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,332 - INFO - Skipping expired job: Retail Admin Graduate Trainee (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,332 - INFO - Skipping expired job: Graduate Trainee Accounting (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,332 - INFO - Skipping expired job: Associate National Finance and Budget Officer (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,333 - INFO - Skipping expired job: INTERNS- SALES AND MARKETING / SUPPLY CHAIN MANAGEMENT (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,333 - INFO - Skipping expired job: Precision Technician – GPS & Agricultural Systems x 1 (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,333 - INFO - Skipping expired job: Head: Human Resources (expires: Expires 23 Jul 2025)
+2025-08-07 12:22:50,333 - INFO - Skipping expired job: SALES AGENTS (expires: Expires 22 Jul 2025)
+2025-08-07 12:22:50,333 - INFO - Page 28: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:51,335 - INFO - Scraping page 29: https://vacancymail.co.zw/jobs/?ordering=later&page=29
+2025-08-07 12:22:51,992 - INFO - Found 10 job listings on page 29
+2025-08-07 12:22:51,993 - INFO - Skipping expired job: Finance Intern (expires: Expires 22 Jul 2025)
+2025-08-07 12:22:51,994 - INFO - Skipping expired job: Survey Locum Nurse x4, Mt Darwin (expires: Expires 22 Jul 2025)
+2025-08-07 12:22:51,995 - INFO - Skipping expired job: Assistant Research Scientist-Engineering(BSc),x1, Mt Darwin/Harare (expires: Expires 22 Jul 2025)
+2025-08-07 12:22:51,995 - INFO - Skipping expired job: Survey Assistants (BSC) x 9, Mt Darwin (expires: Expires 22 Jul 2025)
+2025-08-07 12:22:51,995 - INFO - Skipping expired job: Assistant Social Scientist, Msc x2, Mt Darwin/Harare (expires: Expires 22 Jul 2025)
+2025-08-07 12:22:51,995 - INFO - Skipping expired job: Geological Technician (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:51,996 - INFO - Skipping expired job: Corporate Accountant (1 Post)- Head Office (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:51,996 - INFO - Skipping expired job: MONITORING AND EVALUATION OFFICER (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:51,996 - INFO - Skipping expired job: CATERER (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:51,996 - INFO - Skipping expired job: CONTROLLER CIRCULATION BRANCH (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:51,996 - INFO - Page 29: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:52,998 - INFO - Scraping page 30: https://vacancymail.co.zw/jobs/?ordering=later&page=30
+2025-08-07 12:22:53,690 - INFO - Found 10 job listings on page 30
+2025-08-07 12:22:53,690 - INFO - Skipping expired job: Registered General Nurse X1 (Fixed Term) (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,691 - INFO - Skipping expired job: BLASTER - OPEN CAST COAL MINING (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,691 - INFO - Skipping expired job: REGIONAL ADMINISTRATION OFFICER (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,691 - INFO - Skipping expired job: POSTAL CLERKS (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,691 - INFO - Skipping expired job: REGIONAL ADMINISTRATION CLERK (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,692 - INFO - Skipping expired job: Site Clerk (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,692 - INFO - Skipping expired job: Student Attachment: Human Resources Department (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,692 - INFO - Skipping expired job: Substantive Principal – High School (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,693 - INFO - Skipping expired job: PROJECT TEAM LEADER (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,694 - INFO - Skipping expired job: Surveyor (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:53,694 - INFO - Page 30: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:54,695 - INFO - Scraping page 31: https://vacancymail.co.zw/jobs/?ordering=later&page=31
+2025-08-07 12:22:55,374 - INFO - Found 10 job listings on page 31
+2025-08-07 12:22:55,374 - INFO - Skipping expired job: Engineer (Renewables) (1 Post) Head Office (2 Year Contract) (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:55,375 - INFO - Skipping expired job: FINANCE OFFICER (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:55,376 - INFO - Skipping expired job: ADMINISTRATION OFFICER (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:55,376 - INFO - Skipping expired job: Tenement Administrator (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:55,377 - INFO - Skipping expired job: TECHNICIAN (CROCO BULAWAYO) (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:55,377 - INFO - Skipping expired job: Human Resource and Administration Officer (1 Post) (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:55,378 - INFO - Skipping expired job: Production Controller/ Supervisor (expires: Expires 21 Jul 2025)
+2025-08-07 12:22:55,378 - INFO - Skipping expired job: Communications and Campaigns Officer (expires: Expires 20 Jul 2025)
+2025-08-07 12:22:55,378 - INFO - Skipping expired job: Procurement and Logistics Intern (expires: Expires 20 Jul 2025)
+2025-08-07 12:22:55,379 - INFO - Skipping expired job: WEB DEVELOPER (expires: Expires 20 Jul 2025)
+2025-08-07 12:22:55,379 - INFO - Page 31: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:56,380 - INFO - Scraping page 32: https://vacancymail.co.zw/jobs/?ordering=later&page=32
+2025-08-07 12:22:57,037 - INFO - Found 10 job listings on page 32
+2025-08-07 12:22:57,037 - INFO - Skipping expired job: SHEQ Student Attachee (expires: Expires 20 Jul 2025)
+2025-08-07 12:22:57,038 - INFO - Skipping expired job: Logistics Officer (expires: Expires 20 Jul 2025)
+2025-08-07 12:22:57,038 - INFO - Skipping expired job: Receptionist (expires: Expires 20 Jul 2025)
+2025-08-07 12:22:57,039 - INFO - Skipping expired job: Hydraulic Fitter (expires: Expires 19 Jul 2025)
+2025-08-07 12:22:57,039 - INFO - Skipping expired job: Credit Officer Microfinance (expires: Expires 19 Jul 2025)
+2025-08-07 12:22:57,039 - INFO - Skipping expired job: Human Resources Intern (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:57,040 - INFO - Skipping expired job: Security Guards (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:57,040 - INFO - Skipping expired job: PAINTER (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:57,040 - INFO - Skipping expired job: Civil Works Site Manager (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:57,041 - INFO - Skipping expired job: Debtors Intern (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:57,041 - INFO - Page 32: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:58,043 - INFO - Scraping page 33: https://vacancymail.co.zw/jobs/?ordering=later&page=33
+2025-08-07 12:22:58,742 - INFO - Found 10 job listings on page 33
+2025-08-07 12:22:58,742 - INFO - Skipping expired job: TOR:Gendered analysis of the 2025 National Budget and the Budget Mid-Term Review, with the aim of assessing the gender impact of budget allocations. (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,743 - INFO - Skipping expired job: WORKSHOP LIASON OFFICER (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,744 - INFO - Skipping expired job: Photographer/Editor (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,744 - INFO - Skipping expired job: Provision Of Engineering Consultancy Services (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,745 - INFO - Skipping expired job: Terms of Reference:Simplifying the 2024 & 2025 National Budget for public understanding, focusing on key budget allocations and their implications for various sectors, including gender-responsive poli (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,745 - INFO - Skipping expired job: SALES MANAGER (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,745 - INFO - Skipping expired job: School Secretary (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,746 - INFO - Skipping expired job: Reconciliation Intern (Student on Attachment) *4 (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,746 - INFO - Skipping expired job: CADET INSTRUMENTATION AND CONTROL TECHNICIAN X 1 (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,746 - INFO - Skipping expired job: Logistics Officer (expires: Expires 18 Jul 2025)
+2025-08-07 12:22:58,746 - INFO - Page 33: 0 current jobs, 10 expired jobs
+2025-08-07 12:22:59,748 - INFO - Scraping page 34: https://vacancymail.co.zw/jobs/?ordering=later&page=34
+2025-08-07 12:23:00,431 - INFO - Found 10 job listings on page 34
+2025-08-07 12:23:00,432 - INFO - Skipping expired job: Call For A Consultant To Conduct A Baseline Survey Under The Strong Women Strong World Project Focusing On The Empowerment Of Women And Girls- (expires: Expires 18 Jul 2025)
+2025-08-07 12:23:00,432 - INFO - Skipping expired job: Farm Manager (expires: Expires 18 Jul 2025)
+2025-08-07 12:23:00,432 - INFO - Skipping expired job: INVITATION FOR EXPRESSION OF INTEREST - Baseline Study on Electoral Integrity in Zimbabwe (expires: Expires 18 Jul 2025)
+2025-08-07 12:23:00,432 - INFO - Skipping expired job: Personal Assistant (expires: Expires 17 Jul 2025)
+2025-08-07 12:23:00,433 - INFO - Skipping expired job: Loss Control Officer (expires: Expires 17 Jul 2025)
+2025-08-07 12:23:00,433 - INFO - Skipping expired job: Procurement Graduate Trainee (expires: Expires 17 Jul 2025)
+2025-08-07 12:23:00,433 - INFO - Skipping expired job: Terms of Reference for the Development of a Balanced Scorecard Performance Management System (expires: Expires 17 Jul 2025)
+2025-08-07 12:23:00,433 - INFO - Skipping expired job: Property Sales Agent (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:00,433 - INFO - Skipping expired job: Legal Officer (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:00,434 - INFO - Skipping expired job: Digital Marketing Officer  (EVENTS) (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:00,434 - INFO - Page 34: 0 current jobs, 10 expired jobs
+2025-08-07 12:23:01,436 - INFO - Scraping page 35: https://vacancymail.co.zw/jobs/?ordering=later&page=35
+2025-08-07 12:23:02,086 - INFO - Found 10 job listings on page 35
+2025-08-07 12:23:02,087 - INFO - Skipping expired job: PROJECTS MANAGER (PROJECT 56 Construction) (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,087 - INFO - Skipping expired job: Site Manager (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,087 - INFO - Skipping expired job: Assistant accountant (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,087 - INFO - Skipping expired job: Tanker Driver (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,088 - INFO - Skipping expired job: Biker Sales Person (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,088 - INFO - Skipping expired job: Agronomy Graduate Trainees x 5 (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,088 - INFO - Skipping expired job: TYRE FITTER SUPERVISOR x 1 (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,088 - INFO - Skipping expired job: SEMI SKILLED DPF X 1 (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,088 - INFO - Skipping expired job: SEMI SKILLED HOWO MECHANIC X 2 (expires: Expires 16 Jul 2025)
+2025-08-07 12:23:02,089 - INFO - Skipping expired job: Technical Sales Representative (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:02,089 - INFO - Page 35: 0 current jobs, 10 expired jobs
+2025-08-07 12:23:03,090 - INFO - Scraping page 36: https://vacancymail.co.zw/jobs/?ordering=later&page=36
+2025-08-07 12:23:03,748 - INFO - Found 10 job listings on page 36
+2025-08-07 12:23:03,749 - INFO - Skipping expired job: The Lounge Supervisor (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,750 - INFO - Skipping expired job: Territory Leader /Area Manager (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,751 - INFO - Skipping expired job: Graduate Trainee - Plastic Production (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,751 - INFO - Skipping expired job: Data and Linkage Assistant: AIDS HEALTHCARE FOUNDATION (Kwekwe General Hospital OI Clinic) (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,751 - INFO - Skipping expired job: The Lounge Sales & Marketing (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,752 - INFO - Skipping expired job: Sales And Trade Marketing Officer (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,752 - INFO - Skipping expired job: Commercial Lawyer (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,752 - INFO - Skipping expired job: Tyre Sales and Marketing Executive (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,753 - INFO - Skipping expired job: PRODUCTION MANAGER (expires: Expires 15 Jul 2025)
+2025-08-07 12:23:03,753 - INFO - Skipping expired job: Operations Officer – Harare (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:03,753 - INFO - Page 36: 0 current jobs, 10 expired jobs
+2025-08-07 12:23:04,754 - INFO - Scraping page 37: https://vacancymail.co.zw/jobs/?ordering=later&page=37
+2025-08-07 12:23:05,412 - INFO - Found 10 job listings on page 37
+2025-08-07 12:23:05,413 - INFO - Skipping expired job: Knowledge Management Coordinator (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,413 - INFO - Skipping expired job: Sales Driver (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,413 - INFO - Skipping expired job: SERVICE ADVISOR (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,413 - INFO - Skipping expired job: QUALITY CONTROL OFFICER- MEAT PROCESSING (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,414 - INFO - Skipping expired job: Students on attachment (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,414 - INFO - Skipping expired job: Student on attachment  - Digital Marketing (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,414 - INFO - Skipping expired job: Personal Assistant (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,414 - INFO - Skipping expired job: Fundraising Consultant-National Gallery of Zimbabwe (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,415 - INFO - Skipping expired job: Fitter and Turner (expires: Expires 14 Jul 2025)
+2025-08-07 12:23:05,415 - INFO - Skipping expired job: Human Resources and Administration Assistant (expires: Expires 13 Jul 2025)
+2025-08-07 12:23:05,415 - INFO - Page 37: 0 current jobs, 10 expired jobs
+2025-08-07 12:23:06,416 - INFO - Scraping page 38: https://vacancymail.co.zw/jobs/?ordering=later&page=38
+2025-08-07 12:23:07,091 - INFO - Found 10 job listings on page 38
+2025-08-07 12:23:07,092 - INFO - Skipping expired job: Health Care Assistant (Nurse aide) (expires: Expires 13 Jul 2025)
+2025-08-07 12:23:07,093 - INFO - Skipping expired job: Operating Theatre Nurse (expires: Expires 13 Jul 2025)
+2025-08-07 12:23:07,093 - INFO - Skipping expired job: Human Resources and Administration Assistant (expires: Expires 13 Jul 2025)
+2025-08-07 12:23:07,094 - INFO - Skipping expired job: Sales and Marketing Interns x 4 (Gweru,Mutare,Bulawayo,Masvingo) (expires: Expires 13 Jul 2025)
+2025-08-07 12:23:07,094 - INFO - Skipping expired job: ICT Technical Sales Executive (expires: Expires 12 Jul 2025)
+2025-08-07 12:23:07,095 - INFO - Skipping expired job: Telehandler Operator x1 (expires: Expires 12 Jul 2025)
+2025-08-07 12:23:07,095 - INFO - Skipping expired job: Plumber Class 1 (expires: Expires 12 Jul 2025)
+2025-08-07 12:23:07,095 - INFO - Skipping expired job: SHE Manager (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:07,096 - INFO - Skipping expired job: Finance Attachee (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:07,096 - INFO - Skipping expired job: Procurement Assistant (Regional) (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:07,096 - INFO - Page 38: 0 current jobs, 10 expired jobs
+2025-08-07 12:23:08,098 - INFO - Scraping page 39: https://vacancymail.co.zw/jobs/?ordering=later&page=39
+2025-08-07 12:23:08,747 - INFO - Found 10 job listings on page 39
+2025-08-07 12:23:08,747 - INFO - Skipping expired job: Security Driver (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:08,747 - INFO - Skipping expired job: PR Manager (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:08,747 - INFO - Skipping expired job: DME Coordinator Health and Nutrition (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:08,748 - INFO - Skipping expired job: Monitoring and Evaluation Coordinator (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:08,748 - INFO - Skipping expired job: Bookkeeper - (Harare & Gweru) (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:08,748 - INFO - Skipping expired job: Finance Intern (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:08,748 - INFO - Skipping expired job: Payroll & Pension Clerk (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:08,748 - INFO - Skipping expired job: Procurement Administrator – Head Office (expires: Expires 11 Jul 2025)
+2025-08-07 12:23:08,749 - INFO - Skipping expired job: Content Creator & Social Media Manager (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:08,749 - INFO - Skipping expired job: SOLAR SALES MANAGER (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:08,749 - INFO - Page 39: 0 current jobs, 10 expired jobs
+2025-08-07 12:23:09,750 - INFO - Scraping page 40: https://vacancymail.co.zw/jobs/?ordering=later&page=40
+2025-08-07 12:23:10,414 - INFO - Found 10 job listings on page 40
+2025-08-07 12:23:10,414 - INFO - Skipping expired job: 1.	Graphic Designer/Typesetter (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,415 - INFO - Skipping expired job: INTERNAL AUDIT ATTACHEES (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,415 - INFO - Skipping expired job: Receptionist (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,416 - INFO - Skipping expired job: Sales and Marketing Officer (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,416 - INFO - Skipping expired job: Attachees (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,416 - INFO - Skipping expired job: Graduate Trainee-Registry, Harare Teaching and Learning Centre (1Post). (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,417 - INFO - Skipping expired job: Sales Manager (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,417 - INFO - Skipping expired job: BRANCH MANAGERS X2 (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,417 - INFO - Skipping expired job: INTERNAL AUDIT MANAGER (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,418 - INFO - Skipping expired job: Sales Associate (Corporate IT Hardware & Consumables) (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:10,418 - INFO - Page 40: 0 current jobs, 10 expired jobs
+2025-08-07 12:23:11,419 - INFO - Scraping page 41: https://vacancymail.co.zw/jobs/?ordering=later&page=41
+2025-08-07 12:23:12,073 - INFO - Found 10 job listings on page 41
+2025-08-07 12:23:12,074 - INFO - Skipping expired job: Point Of Sale Operator (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:12,074 - INFO - Skipping expired job: Secretary - Personal Assistant (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:12,074 - INFO - Skipping expired job: Forklift Operator (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:12,075 - INFO - Skipping expired job: Territory Sales Representative (3 posts) : Crusaders Credit (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:12,075 - INFO - Skipping expired job: SALES REPRESENTATIVE- MARONDERA (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:12,076 - INFO - Skipping expired job: Crop Breeding Attachment Opportunity (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:12,077 - INFO - Skipping expired job: Salesperson (expires: Expires 10 Jul 2025)
+2025-08-07 12:23:12,078 - INFO - Skipping expired job: Internship (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:12,078 - INFO - Skipping expired job: Tills Supervisor (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:12,078 - INFO - Skipping expired job: Stores Clerk (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:12,079 - INFO - Page 41: 0 current jobs, 10 expired jobs
+2025-08-07 12:23:13,080 - INFO - Scraping page 42: https://vacancymail.co.zw/jobs/?ordering=later&page=42
+2025-08-07 12:23:13,728 - INFO - Found 9 job listings on page 42
+2025-08-07 12:23:13,728 - INFO - Skipping expired job: Inventory Controller (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:13,729 - INFO - Skipping expired job: Floor Supervisor (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:13,729 - INFO - Skipping expired job: Branch Administration Clerk (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:13,730 - INFO - Skipping expired job: Branch Administrator (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:13,730 - INFO - Skipping expired job: Tender- Bid For Second Hand Motor Vehicle (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:13,730 - INFO - Skipping expired job: Principal Registered Officer (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:13,731 - INFO - Skipping expired job: Counter Sales Supervisor (expires: Expires 09 Jul 2025)
+2025-08-07 12:23:13,731 - INFO - Skipping expired job: LECTURER/SENIOR LECTURER/ASSOCIATE PROFESSOR/PROFESSOR (1 POST) FOR BCOM HONOURS SUPPLY CHAIN MANAGEMENT – DEPARTMENT OF ECONOMICS, MARKETING AND ENTREPRENEURSHIP (expires: Expires 08 Jul 2025)
+2025-08-07 12:23:13,731 - INFO - Skipping expired job: Mashambanzou Care Unit Administrator (expires: Expires 08 Jul 2025)
+2025-08-07 12:23:13,731 - INFO - Page 42: 0 current jobs, 9 expired jobs
+2025-08-07 12:23:13,733 - INFO - Scraped 42 total pages
+2025-08-07 12:23:13,742 - INFO - Also saved as scraped_data.csv
+2025-08-07 12:23:13,746 - INFO - Successfully scraped 128 current jobs from 42 pages
+2025-08-07 12:23:13,746 - INFO - Data saved to scraped_data_20250807_122313.csv at 2025-08-07 12:23:13.746248
+2025-08-07 12:23:13,746 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 12:23:13,746 - INFO - Top locations: {'Harare': 94, 'Bindura': 6, 'Mutare': 5}

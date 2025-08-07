@@ -63,16 +63,29 @@ def get_total_pages(soup):
             # Find all page links and get the highest number
             page_links = pagination.find_all('a')
             max_page = 1
+            
             for link in page_links:
                 link_text = link.get_text(strip=True)
+                href = link.get('href', '')
+                
+                # Check visible digit links
                 if link_text.isdigit():
                     max_page = max(max_page, int(link_text))
-                # Also check for "Next" or "Last" links
-                elif 'last' in link_text.lower() and link.get('href'):
-                    href = link.get('href')
+                
+                # Check for "Last" links
+                elif 'last' in link_text.lower() and href:
                     page_match = re.search(r'page[=\/](\d+)', href)
                     if page_match:
                         max_page = max(max_page, int(page_match.group(1)))
+                
+                # Check for page numbers in href even if text is not a digit (like "…" links)
+                elif href and 'page=' in href:
+                    page_match = re.search(r'page=(\d+)', href)
+                    if page_match:
+                        page_num = int(page_match.group(1))
+                        max_page = max(max_page, page_num)
+                        
+            logging.info(f"Detected maximum page number from pagination: {max_page}")
             return max_page
         
         # Alternative: look for "Page X of Y" text
@@ -112,7 +125,10 @@ def scrape_page(url, page_num=1):
         soup = BeautifulSoup(response.text, 'html.parser')
         job_listings = soup.find_all('a', class_='job-listing')
         
+        logging.info(f"Found {len(job_listings)} job listings on page {page_num}")
+        
         jobs_data = []
+        expired_count = 0
         for job in job_listings:
             title = job.find('h3', class_='job-listing-title').text.strip() if job.find('h3', class_='job-listing-title') else "N/A"
             company = job.find('h4', class_='job-listing-company').text.strip() if job.find('h4', class_='job-listing-company') else "N/A"
@@ -143,7 +159,11 @@ def scrape_page(url, page_num=1):
                     "Description": clean_text(description)
                 })
             else:
+                expired_count += 1
                 logging.info(f"Skipping expired job: {title} (expires: {expiry_date})")
+        
+        logging.info(f"Page {page_num}: {len(jobs_data)} current jobs, {expired_count} expired jobs")
+        print(f"  -> {len(jobs_data)} current jobs, {expired_count} expired jobs")
         
         return jobs_data, soup
         
@@ -181,13 +201,17 @@ def scrape_jobs():
                 time.sleep(1)
                 page_jobs, page_soup = scrape_page(base_url, page_num)
                 
-                if not page_jobs or (page_soup and not page_soup.find_all('a', class_='job-listing')):
-                    # No more jobs found, stop searching
+                # Check if there are actual job listings on the page (regardless of date filtering)
+                if page_soup and page_soup.find_all('a', class_='job-listing'):
+                    # There are job listings, add any current ones to our data
+                    all_jobs_data.extend(page_jobs)
+                    total_pages = page_num
+                    page_num += 1
+                else:
+                    # No job listings found on this page, we've reached the end
+                    logging.info(f"No more job listings found on page {page_num}, stopping search")
+                    print(f"No more job listings found on page {page_num}, stopping search")
                     break
-                    
-                all_jobs_data.extend(page_jobs)
-                total_pages = page_num
-                page_num += 1
         else:
             # Scrape remaining pages using detected total
             for page_num in range(2, total_pages + 1):
