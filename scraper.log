@@ -1,0 +1,282 @@
+2025-05-02 13:23:26,284 - INFO - Starting the web scraper...
+2025-05-02 13:23:26,286 - INFO - Scraping jobs...
+2025-05-02 13:23:27,305 - INFO - Successfully fetched data from https://vacancymail.co.zw/jobs/
+2025-05-02 13:23:27,450 - INFO - Data saved to scraped_data.csv at 2025-05-02 13:23:27.450217
+2025-05-02 14:19:12,743 - INFO - Starting the web scraper...
+2025-05-02 14:19:12,746 - INFO - Scraping jobs...
+2025-05-02 14:19:13,695 - INFO - Successfully fetched data from https://vacancymail.co.zw/jobs/
+2025-05-02 14:19:13,857 - INFO - Data saved to scraped_data.csv at 2025-05-02 14:19:13.848062
+2025-08-07 00:07:03,019 - INFO - Starting the web scraper...
+2025-08-07 00:07:03,020 - INFO - Scraping jobs...
+2025-08-07 00:07:04,107 - INFO - Successfully fetched data from https://vacancymail.co.zw/jobs/
+2025-08-07 00:07:04,178 - INFO - Data saved to scraped_data.csv at 2025-08-07 00:07:04.173976
+2025-08-07 00:16:29,972 - INFO - Starting the web scraper...
+2025-08-07 00:16:29,973 - INFO - Starting comprehensive job scraping...
+2025-08-07 00:16:29,973 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/
+2025-08-07 00:16:31,019 - INFO - Found 1 total pages to scrape
+2025-08-07 00:16:31,032 - ERROR - Error occurred during scraping: [Errno 13] Permission denied: 'scraped_data.csv'
+2025-08-07 00:17:33,055 - INFO - Starting the web scraper...
+2025-08-07 00:17:33,055 - INFO - Starting comprehensive job scraping...
+2025-08-07 00:17:33,056 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/
+2025-08-07 00:17:34,106 - INFO - Found 1 total pages to scrape
+2025-08-07 00:17:34,158 - INFO - Successfully scraped 10 current jobs from 1 pages
+2025-08-07 00:17:34,163 - INFO - Data saved to scraped_data_20250807_001734.csv at 2025-08-07 00:17:34.159734
+2025-08-07 00:17:34,163 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 00:18:57,658 - INFO - Starting the web scraper...
+2025-08-07 00:18:57,659 - INFO - Starting comprehensive job scraping...
+2025-08-07 00:18:57,659 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/
+2025-08-07 00:18:59,569 - INFO - Scraping page 2: https://vacancymail.co.zw/jobs/?page=2
+2025-08-07 00:19:01,513 - INFO - Scraping page 3: https://vacancymail.co.zw/jobs/?page=3
+2025-08-07 00:19:03,341 - INFO - Scraping page 4: https://vacancymail.co.zw/jobs/?page=4
+2025-08-07 00:19:04,508 - INFO - Skipping expired job: Excavator Operator (expires: Expires 06 Aug 2025)
+2025-08-07 00:19:04,510 - INFO - Skipping expired job: GRAPHIC DESIGNER (expires: Expires 06 Aug 2025)
+2025-08-07 00:19:05,511 - INFO - Scraping page 5: https://vacancymail.co.zw/jobs/?page=5
+2025-08-07 00:19:06,440 - INFO - Skipping expired job: Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 00:19:06,442 - INFO - Skipping expired job: Accounts Intern (expires: Expires 06 Aug 2025)
+2025-08-07 00:19:07,445 - INFO - Scraping page 6: https://vacancymail.co.zw/jobs/?page=6
+2025-08-07 00:19:08,400 - INFO - Skipping expired job: Sales Engineer (expires: Expires 04 Aug 2025)
+2025-08-07 00:19:08,403 - INFO - Skipping expired job: Debtors Clerk (expires: Expires 04 Aug 2025)
+2025-08-07 00:19:08,403 - INFO - Skipping expired job: BRANCH SUPERVISOR (expires: Expires 05 Aug 2025)
+2025-08-07 00:19:09,404 - INFO - Scraping page 7: https://vacancymail.co.zw/jobs/?page=7
+2025-08-07 00:19:10,424 - INFO - Skipping expired job: Security Guards (expires: Expires 06 Aug 2025)
+2025-08-07 00:19:10,424 - INFO - Skipping expired job: Student Attachees x 2 : Survey and & Geoinformatics (expires: Expires 05 Aug 2025)
+2025-08-07 00:19:10,426 - INFO - Skipping expired job: Assistant Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 00:19:10,426 - INFO - Skipping expired job: Cashier (expires: Expires 04 Aug 2025)
+2025-08-07 00:19:11,427 - INFO - Scraping page 8: https://vacancymail.co.zw/jobs/?page=8
+2025-08-07 00:19:12,391 - INFO - Skipping expired job: Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 00:19:12,392 - INFO - Skipping expired job: Sales Executive (expires: Expires 01 Aug 2025)
+2025-08-07 00:19:12,393 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 01 Aug 2025)
+2025-08-07 00:19:12,393 - INFO - Skipping expired job: Communications Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 00:19:12,394 - INFO - Skipping expired job: Logistics Officer (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:12,394 - INFO - Skipping expired job: Drivers (expires: Expires 04 Aug 2025)
+2025-08-07 00:19:13,397 - INFO - Scraping page 9: https://vacancymail.co.zw/jobs/?page=9
+2025-08-07 00:19:14,423 - INFO - Skipping expired job: Agronomist (expires: Expires 02 Aug 2025)
+2025-08-07 00:19:14,424 - INFO - Skipping expired job: Jeweller (expires: Expires 02 Aug 2025)
+2025-08-07 00:19:14,424 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:14,425 - INFO - Skipping expired job: Capentery Instructor (expires: Expires 02 Aug 2025)
+2025-08-07 00:19:15,428 - INFO - Scraping page 10: https://vacancymail.co.zw/jobs/?page=10
+2025-08-07 00:19:16,292 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:16,293 - INFO - Skipping expired job: Mining Contracts Manager (expires: Expires 04 Aug 2025)
+2025-08-07 00:19:16,293 - INFO - Skipping expired job: Business Infrastructure Development Intern SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 00:19:16,295 - INFO - Skipping expired job: Attachee-IT Office (expires: Expires 30 Jul 2025)
+2025-08-07 00:19:16,297 - INFO - Skipping expired job: Attachee-SHEQ (expires: Expires 30 Jul 2025)
+2025-08-07 00:19:17,299 - INFO - Scraping page 11: https://vacancymail.co.zw/jobs/?page=11
+2025-08-07 00:19:18,208 - INFO - Skipping expired job: Credit Controller (expires: Expires 03 Aug 2025)
+2025-08-07 00:19:18,209 - INFO - Skipping expired job: MARKETING AND PUBLIC RELATIONS TRAINEE OPPORTUNITY SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 00:19:18,210 - INFO - Skipping expired job: Channel Development Lead (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:18,210 - INFO - Skipping expired job: International Logistics Administrator (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:18,211 - INFO - Skipping expired job: ARTISAN-CARPENTER (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:18,211 - INFO - Skipping expired job: Projects Manager (expires: Expires 30 Jul 2025)
+2025-08-07 00:19:18,212 - INFO - Skipping expired job: Chef (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:18,214 - INFO - Skipping expired job: Student Attachee – Sales and Marketing (Harare) (expires: Expires 29 Jul 2025)
+2025-08-07 00:19:19,215 - INFO - Scraping page 12: https://vacancymail.co.zw/jobs/?page=12
+2025-08-07 00:19:20,166 - INFO - Skipping expired job: Site Agent (expires: Expires 28 Jul 2025)
+2025-08-07 00:19:20,167 - INFO - Skipping expired job: Field Officer x 2 (expires: Expires 30 Jul 2025)
+2025-08-07 00:19:20,167 - INFO - Skipping expired job: Assistant Radiographer (X1) (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:20,168 - INFO - Skipping expired job: IT Intern (expires: Expires 29 Jul 2025)
+2025-08-07 00:19:20,168 - INFO - Skipping expired job: Graduate Trainee Programme (expires: Expires 28 Jul 2025)
+2025-08-07 00:19:20,170 - INFO - Skipping expired job: Digital Marketing Officer (expires: Expires 31 Jul 2025)
+2025-08-07 00:19:20,170 - INFO - Scraped 12 total pages
+2025-08-07 00:19:20,182 - INFO - Successfully scraped 80 current jobs from 12 pages
+2025-08-07 00:19:20,183 - INFO - Data saved to scraped_data_20250807_001920.csv at 2025-08-07 00:19:20.183130
+2025-08-07 00:19:20,183 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 00:20:33,284 - INFO - Starting the web scraper...
+2025-08-07 00:20:33,284 - INFO - Starting comprehensive job scraping...
+2025-08-07 00:20:33,285 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/
+2025-08-07 00:20:35,166 - INFO - Scraping page 2: https://vacancymail.co.zw/jobs/?page=2
+2025-08-07 00:20:39,596 - INFO - Scraping page 3: https://vacancymail.co.zw/jobs/?page=3
+2025-08-07 00:20:41,550 - INFO - Scraping page 4: https://vacancymail.co.zw/jobs/?page=4
+2025-08-07 00:20:42,417 - INFO - Skipping expired job: Excavator Operator (expires: Expires 06 Aug 2025)
+2025-08-07 00:20:42,419 - INFO - Skipping expired job: GRAPHIC DESIGNER (expires: Expires 06 Aug 2025)
+2025-08-07 00:20:43,420 - INFO - Scraping page 5: https://vacancymail.co.zw/jobs/?page=5
+2025-08-07 00:20:44,276 - INFO - Skipping expired job: Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 00:20:44,278 - INFO - Skipping expired job: Accounts Intern (expires: Expires 06 Aug 2025)
+2025-08-07 00:20:45,280 - INFO - Scraping page 6: https://vacancymail.co.zw/jobs/?page=6
+2025-08-07 00:20:46,190 - INFO - Skipping expired job: Sales Engineer (expires: Expires 04 Aug 2025)
+2025-08-07 00:20:46,196 - INFO - Skipping expired job: Debtors Clerk (expires: Expires 04 Aug 2025)
+2025-08-07 00:20:46,196 - INFO - Skipping expired job: BRANCH SUPERVISOR (expires: Expires 05 Aug 2025)
+2025-08-07 00:20:47,198 - INFO - Scraping page 7: https://vacancymail.co.zw/jobs/?page=7
+2025-08-07 00:20:48,129 - INFO - Skipping expired job: Security Guards (expires: Expires 06 Aug 2025)
+2025-08-07 00:20:48,129 - INFO - Skipping expired job: Student Attachees x 2 : Survey and & Geoinformatics (expires: Expires 05 Aug 2025)
+2025-08-07 00:20:48,130 - INFO - Skipping expired job: Assistant Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 00:20:48,130 - INFO - Skipping expired job: Cashier (expires: Expires 04 Aug 2025)
+2025-08-07 00:20:49,131 - INFO - Scraping page 8: https://vacancymail.co.zw/jobs/?page=8
+2025-08-07 00:20:50,082 - INFO - Skipping expired job: Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 00:20:50,083 - INFO - Skipping expired job: Sales Executive (expires: Expires 01 Aug 2025)
+2025-08-07 00:20:50,084 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 01 Aug 2025)
+2025-08-07 00:20:50,084 - INFO - Skipping expired job: Communications Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 00:20:50,084 - INFO - Skipping expired job: Logistics Officer (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:50,085 - INFO - Skipping expired job: Drivers (expires: Expires 04 Aug 2025)
+2025-08-07 00:20:51,086 - INFO - Scraping page 9: https://vacancymail.co.zw/jobs/?page=9
+2025-08-07 00:20:51,955 - INFO - Skipping expired job: Agronomist (expires: Expires 02 Aug 2025)
+2025-08-07 00:20:51,955 - INFO - Skipping expired job: Jeweller (expires: Expires 02 Aug 2025)
+2025-08-07 00:20:51,956 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:51,956 - INFO - Skipping expired job: Capentery Instructor (expires: Expires 02 Aug 2025)
+2025-08-07 00:20:52,959 - INFO - Scraping page 10: https://vacancymail.co.zw/jobs/?page=10
+2025-08-07 00:20:53,889 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:53,890 - INFO - Skipping expired job: Mining Contracts Manager (expires: Expires 04 Aug 2025)
+2025-08-07 00:20:53,890 - INFO - Skipping expired job: Business Infrastructure Development Intern SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 00:20:53,892 - INFO - Skipping expired job: Attachee-IT Office (expires: Expires 30 Jul 2025)
+2025-08-07 00:20:53,893 - INFO - Skipping expired job: Attachee-SHEQ (expires: Expires 30 Jul 2025)
+2025-08-07 00:20:54,895 - INFO - Scraping page 11: https://vacancymail.co.zw/jobs/?page=11
+2025-08-07 00:20:55,823 - INFO - Skipping expired job: Credit Controller (expires: Expires 03 Aug 2025)
+2025-08-07 00:20:55,823 - INFO - Skipping expired job: MARKETING AND PUBLIC RELATIONS TRAINEE OPPORTUNITY SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 00:20:55,824 - INFO - Skipping expired job: Channel Development Lead (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:55,824 - INFO - Skipping expired job: International Logistics Administrator (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:55,825 - INFO - Skipping expired job: ARTISAN-CARPENTER (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:55,826 - INFO - Skipping expired job: Projects Manager (expires: Expires 30 Jul 2025)
+2025-08-07 00:20:55,827 - INFO - Skipping expired job: Chef (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:55,827 - INFO - Skipping expired job: Student Attachee – Sales and Marketing (Harare) (expires: Expires 29 Jul 2025)
+2025-08-07 00:20:56,828 - INFO - Scraping page 12: https://vacancymail.co.zw/jobs/?page=12
+2025-08-07 00:20:57,783 - INFO - Skipping expired job: Site Agent (expires: Expires 28 Jul 2025)
+2025-08-07 00:20:57,784 - INFO - Skipping expired job: Field Officer x 2 (expires: Expires 30 Jul 2025)
+2025-08-07 00:20:57,785 - INFO - Skipping expired job: Assistant Radiographer (X1) (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:57,785 - INFO - Skipping expired job: IT Intern (expires: Expires 29 Jul 2025)
+2025-08-07 00:20:57,786 - INFO - Skipping expired job: Graduate Trainee Programme (expires: Expires 28 Jul 2025)
+2025-08-07 00:20:57,787 - INFO - Skipping expired job: Digital Marketing Officer (expires: Expires 31 Jul 2025)
+2025-08-07 00:20:57,788 - INFO - Scraped 12 total pages
+2025-08-07 00:20:57,805 - INFO - Also saved as scraped_data.csv
+2025-08-07 00:20:57,817 - INFO - Successfully scraped 80 current jobs from 12 pages
+2025-08-07 00:20:57,818 - INFO - Data saved to scraped_data_20250807_002057.csv at 2025-08-07 00:20:57.817848
+2025-08-07 00:20:57,818 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 00:20:57,818 - INFO - Top locations: {'Harare': 56, 'Mutare': 6, 'Chipinge': 3}
+2025-08-07 00:26:48,459 - INFO - Starting the web scraper...
+2025-08-07 00:26:48,460 - INFO - Starting comprehensive job scraping...
+2025-08-07 00:26:48,460 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/
+2025-08-07 00:26:50,504 - INFO - Scraping page 2: https://vacancymail.co.zw/jobs/?page=2
+2025-08-07 00:26:52,437 - INFO - Scraping page 3: https://vacancymail.co.zw/jobs/?page=3
+2025-08-07 00:26:55,338 - INFO - Scraping page 4: https://vacancymail.co.zw/jobs/?page=4
+2025-08-07 00:26:56,201 - INFO - Skipping expired job: Excavator Operator (expires: Expires 06 Aug 2025)
+2025-08-07 00:26:56,203 - INFO - Skipping expired job: GRAPHIC DESIGNER (expires: Expires 06 Aug 2025)
+2025-08-07 00:26:57,204 - INFO - Scraping page 5: https://vacancymail.co.zw/jobs/?page=5
+2025-08-07 00:26:58,022 - INFO - Skipping expired job: Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 00:26:58,024 - INFO - Skipping expired job: Accounts Intern (expires: Expires 06 Aug 2025)
+2025-08-07 00:26:59,027 - INFO - Scraping page 6: https://vacancymail.co.zw/jobs/?page=6
+2025-08-07 00:26:59,842 - INFO - Skipping expired job: Sales Engineer (expires: Expires 04 Aug 2025)
+2025-08-07 00:26:59,845 - INFO - Skipping expired job: Debtors Clerk (expires: Expires 04 Aug 2025)
+2025-08-07 00:26:59,845 - INFO - Skipping expired job: BRANCH SUPERVISOR (expires: Expires 05 Aug 2025)
+2025-08-07 00:27:00,846 - INFO - Scraping page 7: https://vacancymail.co.zw/jobs/?page=7
+2025-08-07 00:27:01,668 - INFO - Skipping expired job: Security Guards (expires: Expires 06 Aug 2025)
+2025-08-07 00:27:01,669 - INFO - Skipping expired job: Student Attachees x 2 : Survey and & Geoinformatics (expires: Expires 05 Aug 2025)
+2025-08-07 00:27:01,670 - INFO - Skipping expired job: Assistant Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 00:27:01,671 - INFO - Skipping expired job: Cashier (expires: Expires 04 Aug 2025)
+2025-08-07 00:27:02,672 - INFO - Scraping page 8: https://vacancymail.co.zw/jobs/?page=8
+2025-08-07 00:27:03,524 - INFO - Skipping expired job: Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 00:27:03,525 - INFO - Skipping expired job: Sales Executive (expires: Expires 01 Aug 2025)
+2025-08-07 00:27:03,525 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 01 Aug 2025)
+2025-08-07 00:27:03,526 - INFO - Skipping expired job: Communications Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 00:27:03,526 - INFO - Skipping expired job: Logistics Officer (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:03,527 - INFO - Skipping expired job: Drivers (expires: Expires 04 Aug 2025)
+2025-08-07 00:27:04,530 - INFO - Scraping page 9: https://vacancymail.co.zw/jobs/?page=9
+2025-08-07 00:27:05,469 - INFO - Skipping expired job: Agronomist (expires: Expires 02 Aug 2025)
+2025-08-07 00:27:05,469 - INFO - Skipping expired job: Jeweller (expires: Expires 02 Aug 2025)
+2025-08-07 00:27:05,470 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:05,470 - INFO - Skipping expired job: Capentery Instructor (expires: Expires 02 Aug 2025)
+2025-08-07 00:27:06,473 - INFO - Scraping page 10: https://vacancymail.co.zw/jobs/?page=10
+2025-08-07 00:27:07,436 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:07,437 - INFO - Skipping expired job: Mining Contracts Manager (expires: Expires 04 Aug 2025)
+2025-08-07 00:27:07,438 - INFO - Skipping expired job: Business Infrastructure Development Intern SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 00:27:07,439 - INFO - Skipping expired job: Attachee-IT Office (expires: Expires 30 Jul 2025)
+2025-08-07 00:27:07,439 - INFO - Skipping expired job: Attachee-SHEQ (expires: Expires 30 Jul 2025)
+2025-08-07 00:27:08,441 - INFO - Scraping page 11: https://vacancymail.co.zw/jobs/?page=11
+2025-08-07 00:27:09,313 - INFO - Skipping expired job: Credit Controller (expires: Expires 03 Aug 2025)
+2025-08-07 00:27:09,314 - INFO - Skipping expired job: MARKETING AND PUBLIC RELATIONS TRAINEE OPPORTUNITY SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 00:27:09,315 - INFO - Skipping expired job: Channel Development Lead (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:09,315 - INFO - Skipping expired job: International Logistics Administrator (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:09,316 - INFO - Skipping expired job: ARTISAN-CARPENTER (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:09,316 - INFO - Skipping expired job: Projects Manager (expires: Expires 30 Jul 2025)
+2025-08-07 00:27:09,317 - INFO - Skipping expired job: Chef (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:09,318 - INFO - Skipping expired job: Student Attachee – Sales and Marketing (Harare) (expires: Expires 29 Jul 2025)
+2025-08-07 00:27:10,319 - INFO - Scraping page 12: https://vacancymail.co.zw/jobs/?page=12
+2025-08-07 00:27:11,220 - INFO - Skipping expired job: Site Agent (expires: Expires 28 Jul 2025)
+2025-08-07 00:27:11,221 - INFO - Skipping expired job: Field Officer x 2 (expires: Expires 30 Jul 2025)
+2025-08-07 00:27:11,221 - INFO - Skipping expired job: Assistant Radiographer (X1) (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:11,222 - INFO - Skipping expired job: IT Intern (expires: Expires 29 Jul 2025)
+2025-08-07 00:27:11,222 - INFO - Skipping expired job: Graduate Trainee Programme (expires: Expires 28 Jul 2025)
+2025-08-07 00:27:11,224 - INFO - Skipping expired job: Digital Marketing Officer (expires: Expires 31 Jul 2025)
+2025-08-07 00:27:11,225 - INFO - Scraped 12 total pages
+2025-08-07 00:27:11,243 - INFO - Also saved as scraped_data.csv
+2025-08-07 00:27:11,248 - INFO - Successfully scraped 80 current jobs from 12 pages
+2025-08-07 00:27:11,248 - INFO - Data saved to scraped_data_20250807_002711.csv at 2025-08-07 00:27:11.248763
+2025-08-07 00:27:11,249 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 00:27:11,249 - INFO - Top locations: {'Harare': 56, 'Mutare': 6, 'Chipinge': 3}
+2025-08-07 00:39:39,908 - INFO - Starting the web scraper...
+2025-08-07 00:39:39,909 - INFO - Starting comprehensive job scraping...
+2025-08-07 00:39:39,910 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/
+2025-08-07 00:39:41,833 - INFO - Scraping page 2: https://vacancymail.co.zw/jobs/?page=2
+2025-08-07 00:39:43,768 - INFO - Scraping page 3: https://vacancymail.co.zw/jobs/?page=3
+2025-08-07 00:39:45,818 - INFO - Scraping page 4: https://vacancymail.co.zw/jobs/?page=4
+2025-08-07 00:39:46,739 - INFO - Skipping expired job: Excavator Operator (expires: Expires 06 Aug 2025)
+2025-08-07 00:39:46,741 - INFO - Skipping expired job: GRAPHIC DESIGNER (expires: Expires 06 Aug 2025)
+2025-08-07 00:39:47,742 - INFO - Scraping page 5: https://vacancymail.co.zw/jobs/?page=5
+2025-08-07 00:39:48,685 - INFO - Skipping expired job: Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 00:39:48,687 - INFO - Skipping expired job: Accounts Intern (expires: Expires 06 Aug 2025)
+2025-08-07 00:39:49,689 - INFO - Scraping page 6: https://vacancymail.co.zw/jobs/?page=6
+2025-08-07 00:39:50,586 - INFO - Skipping expired job: Sales Engineer (expires: Expires 04 Aug 2025)
+2025-08-07 00:39:50,588 - INFO - Skipping expired job: Debtors Clerk (expires: Expires 04 Aug 2025)
+2025-08-07 00:39:50,589 - INFO - Skipping expired job: BRANCH SUPERVISOR (expires: Expires 05 Aug 2025)
+2025-08-07 00:39:51,590 - INFO - Scraping page 7: https://vacancymail.co.zw/jobs/?page=7
+2025-08-07 00:39:52,461 - INFO - Skipping expired job: Security Guards (expires: Expires 06 Aug 2025)
+2025-08-07 00:39:52,462 - INFO - Skipping expired job: Student Attachees x 2 : Survey and & Geoinformatics (expires: Expires 05 Aug 2025)
+2025-08-07 00:39:52,464 - INFO - Skipping expired job: Assistant Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 00:39:52,465 - INFO - Skipping expired job: Cashier (expires: Expires 04 Aug 2025)
+2025-08-07 00:39:53,467 - INFO - Scraping page 8: https://vacancymail.co.zw/jobs/?page=8
+2025-08-07 00:39:54,419 - INFO - Skipping expired job: Accountant (expires: Expires 04 Aug 2025)
+2025-08-07 00:39:54,420 - INFO - Skipping expired job: Sales Executive (expires: Expires 01 Aug 2025)
+2025-08-07 00:39:54,421 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 01 Aug 2025)
+2025-08-07 00:39:54,421 - INFO - Skipping expired job: Communications Graduate Intern (expires: Expires 05 Aug 2025)
+2025-08-07 00:39:54,422 - INFO - Skipping expired job: Logistics Officer (expires: Expires 31 Jul 2025)
+2025-08-07 00:39:54,422 - INFO - Skipping expired job: Drivers (expires: Expires 04 Aug 2025)
+2025-08-07 00:39:55,423 - INFO - Scraping page 9: https://vacancymail.co.zw/jobs/?page=9
+2025-08-07 00:39:56,354 - INFO - Skipping expired job: Agronomist (expires: Expires 02 Aug 2025)
+2025-08-07 00:39:56,355 - INFO - Skipping expired job: Jeweller (expires: Expires 02 Aug 2025)
+2025-08-07 00:39:56,355 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 00:39:56,355 - INFO - Skipping expired job: Capentery Instructor (expires: Expires 02 Aug 2025)
+2025-08-07 00:39:57,358 - INFO - Scraping page 10: https://vacancymail.co.zw/jobs/?page=10
+2025-08-07 00:39:58,190 - INFO - Skipping expired job: Accounts Clerk (expires: Expires 31 Jul 2025)
+2025-08-07 00:39:58,191 - INFO - Skipping expired job: Mining Contracts Manager (expires: Expires 04 Aug 2025)
+2025-08-07 00:39:58,192 - INFO - Skipping expired job: Business Infrastructure Development Intern SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 00:39:58,193 - INFO - Skipping expired job: Attachee-IT Office (expires: Expires 30 Jul 2025)
+2025-08-07 00:39:58,194 - INFO - Skipping expired job: Attachee-SHEQ (expires: Expires 30 Jul 2025)
+2025-08-07 00:39:59,196 - INFO - Scraping page 11: https://vacancymail.co.zw/jobs/?page=11
+2025-08-07 00:40:00,140 - INFO - Skipping expired job: Credit Controller (expires: Expires 03 Aug 2025)
+2025-08-07 00:40:00,141 - INFO - Skipping expired job: MARKETING AND PUBLIC RELATIONS TRAINEE OPPORTUNITY SMEDCO HEAD OFFICE x1 (expires: Expires 05 Aug 2025)
+2025-08-07 00:40:00,142 - INFO - Skipping expired job: Channel Development Lead (expires: Expires 31 Jul 2025)
+2025-08-07 00:40:00,142 - INFO - Skipping expired job: International Logistics Administrator (expires: Expires 31 Jul 2025)
+2025-08-07 00:40:00,142 - INFO - Skipping expired job: ARTISAN-CARPENTER (expires: Expires 31 Jul 2025)
+2025-08-07 00:40:00,143 - INFO - Skipping expired job: Projects Manager (expires: Expires 30 Jul 2025)
+2025-08-07 00:40:00,143 - INFO - Skipping expired job: Chef (expires: Expires 31 Jul 2025)
+2025-08-07 00:40:00,144 - INFO - Skipping expired job: Student Attachee – Sales and Marketing (Harare) (expires: Expires 29 Jul 2025)
+2025-08-07 00:40:01,145 - INFO - Scraping page 12: https://vacancymail.co.zw/jobs/?page=12
+2025-08-07 00:40:02,196 - INFO - Skipping expired job: Site Agent (expires: Expires 28 Jul 2025)
+2025-08-07 00:40:02,197 - INFO - Skipping expired job: Field Officer x 2 (expires: Expires 30 Jul 2025)
+2025-08-07 00:40:02,198 - INFO - Skipping expired job: Assistant Radiographer (X1) (expires: Expires 31 Jul 2025)
+2025-08-07 00:40:02,200 - INFO - Skipping expired job: IT Intern (expires: Expires 29 Jul 2025)
+2025-08-07 00:40:02,200 - INFO - Skipping expired job: Graduate Trainee Programme (expires: Expires 28 Jul 2025)
+2025-08-07 00:40:02,202 - INFO - Skipping expired job: Digital Marketing Officer (expires: Expires 31 Jul 2025)
+2025-08-07 00:40:02,204 - INFO - Scraped 12 total pages
+2025-08-07 00:40:02,265 - INFO - Also saved as scraped_data.csv
+2025-08-07 00:40:02,271 - INFO - Successfully scraped 80 current jobs from 12 pages
+2025-08-07 00:40:02,271 - INFO - Data saved to scraped_data_20250807_004002.csv at 2025-08-07 00:40:02.271606
+2025-08-07 00:40:02,271 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 00:40:02,272 - INFO - Top locations: {'Harare': 56, 'Mutare': 6, 'Chipinge': 3}
+2025-08-07 00:44:56,175 - INFO - Starting the web scraper...
+2025-08-07 00:44:56,176 - INFO - Starting comprehensive job scraping...
+2025-08-07 00:44:56,176 - INFO - Scraping page 1: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&
+2025-08-07 00:44:58,264 - INFO - Scraping page 2: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=2
+2025-08-07 00:45:00,203 - INFO - Scraping page 3: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=3
+2025-08-07 00:45:02,207 - INFO - Scraping page 4: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=4
+2025-08-07 00:45:04,079 - INFO - Scraping page 5: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=5
+2025-08-07 00:45:05,901 - INFO - Scraping page 6: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=6
+2025-08-07 00:45:07,747 - INFO - Scraping page 7: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=7
+2025-08-07 00:45:09,696 - INFO - Scraping page 8: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=8
+2025-08-07 00:45:11,648 - INFO - Scraping page 9: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=9
+2025-08-07 00:45:15,306 - INFO - Scraping page 10: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=10
+2025-08-07 00:45:17,162 - INFO - Scraping page 11: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=11
+2025-08-07 00:45:19,012 - INFO - Scraping page 12: https://vacancymail.co.zw/jobs/?ordering=laterest&search=&location=&category=&job_type=&job_function=&job_level=&job_industry=&job_salary=&job_experience=&job_education=&job_language=&job_skill=&job_title=&job_description=&job_location=&job_expiry=&job_posted=&job_updated=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&job_featured=&?page=12
+2025-08-07 00:45:20,039 - INFO - Scraped 12 total pages
+2025-08-07 00:45:20,052 - INFO - Also saved as scraped_data.csv
+2025-08-07 00:45:20,057 - INFO - Successfully scraped 120 current jobs from 12 pages
+2025-08-07 00:45:20,057 - INFO - Data saved to scraped_data_20250807_004520.csv at 2025-08-07 00:45:20.057662
+2025-08-07 00:45:20,058 - INFO - Jobs filtered to show only those expiring on or after 2025-08-07
+2025-08-07 00:45:20,058 - INFO - Top locations: {'Harare': 84, 'Chipinge': 24, 'Mutare': 12}
