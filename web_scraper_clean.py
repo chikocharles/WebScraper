@@ -188,7 +188,7 @@ class JobScraper(ABC):
             
             # Scrape remaining pages
             if not test_mode and total_pages > 1:
-                for page_num in range(2, min(total_pages + 1, 20)):  # Limit to 50 pages for safety
+                for page_num in range(2, min(total_pages + 1, 50)):  # Limit to 50 pages for safety
                     time.sleep(1)  # Be respectful
                     page_jobs, _ = self.scrape_page(self.base_url, page_num)
                     all_jobs_data.extend(page_jobs)
@@ -370,70 +370,31 @@ class JobsZimbabweScraper(JobScraper):
     def get_total_pages(self, soup):
         """Extract total number of pages from pagination."""
         try:
-            # Look for pagination links at the bottom
-            pagination_links = soup.find_all('a', href=True)
-            max_page = 1
-            
-            for link in pagination_links:
-                href = link.get('href', '')
-                if '/page/' in href:
-                    # Extract page number from URL like "/page/2/"
-                    page_match = re.search(r'/page/(\d+)/', href)
-                    if page_match:
-                        page_num = int(page_match.group(1))
-                        max_page = max(max_page, page_num)
-                
-                # Also check link text for page numbers
-                if link.text.strip().isdigit():
-                    max_page = max(max_page, int(link.text.strip()))
-            
-            # Look for "Page X,XXX" text which indicates the last page
-            page_text = soup.get_text()
-            if 'Page ' in page_text:
-                page_match = re.search(r'Page\s+[\d,]+', page_text)
-                if page_match:
-                    page_num_text = page_match.group().replace('Page ', '').replace(',', '')
-                    if page_num_text.isdigit():
-                        max_page = max(max_page, int(page_num_text))
-            
-            return min(max_page, 20)  # Limit to 100 pages for safety
+            pagination = soup.find('nav', class_='np') or soup.find('div', class_='np')
+            if pagination:
+                page_links = pagination.find_all('a')
+                max_page = 1
+                for link in page_links:
+                    if link.text.strip().isdigit():
+                        max_page = max(max_page, int(link.text.strip()))
+                return min(max_page, 15)  # Limit to 15 pages
         except Exception as e:
-            logging.warning(f"Could not determine total pages for Jobs Zimbabwe: {e}")
+            logging.warning(f"Could not determine total pages for Indeed: {e}")
         return 1
 
     def extract_email_from_job_page(self, job_url):
-        """Extract email from Jobs Zimbabwe job detail page."""
-        try:
-            if not job_url.startswith('http'):
-                job_url = 'https://jobszimbabwe.co.zw' + job_url
-            
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-            }
-            
-            response = requests.get(job_url, headers=headers, timeout=10)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
-            # Look for email in the job description
-            page_text = soup.get_text()
-            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-            emails = re.findall(email_pattern, page_text)
-            
-            return emails[0] if emails else "Apply on Jobs Zimbabwe"
-        except Exception as e:
-            logging.warning(f"Could not extract email from {job_url}: {e}")
-            return "Apply on Jobs Zimbabwe"
+        """Indeed doesn't typically expose emails directly."""
+        return "Apply on Indeed"
 
     def scrape_page(self, url, page_num=1):
-        """Scrape jobs from Jobs Zimbabwe."""
+        """Scrape jobs from Job Zimbabwe."""
         try:
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
             }
             
             if page_num > 1:
-                page_url = f"{url}page/{page_num}/"
+                page_url = f"{url}?start={10 * (page_num - 1)}"
             else:
                 page_url = url
             
@@ -441,345 +402,151 @@ class JobsZimbabweScraper(JobScraper):
             response.raise_for_status()
             soup = BeautifulSoup(response.text, 'html.parser')
             
+            # Indeed job card selectors
+            job_listings = soup.find_all('div', class_='jobsearch-SerpJobCard') or soup.find_all('div', class_='job_seen_beacon')
+            
             jobs_data = []
             
-            # Look for job entries - Jobs Zimbabwe uses h3 headings for job titles
-            job_headings = soup.find_all('h3')
-            
-            for job_index, heading in enumerate(job_headings):
+            for job_index, job in enumerate(job_listings):
                 try:
-                    # Extract job title from h3 text
-                    title_text = heading.get_text(strip=True)
+                    title_elem = job.find('h2', class_='title') or job.find('a', attrs={'data-jk': True})
+                    title = title_elem.text.strip() if title_elem else "N/A"
                     
-                    # Skip if this doesn't look like a job title
-                    if not title_text or len(title_text) < 5:
-                        continue
+                    company_elem = job.find('span', class_='company') or job.find('a', class_='turnstileLink')
+                    company = company_elem.text.strip() if company_elem else "N/A"
                     
-                    # Extract title and company (format: "JOB TITLE – Company Name")
-                    if ' – ' in title_text:
-                        title, company = title_text.split(' – ', 1)
-                        title = title.strip()
-                        company = company.strip()
-                    else:
-                        title = title_text
-                        company = "N/A"
+                    location_elem = job.find('div', class_='recJobLoc') or job.find('div', class_='companyLocation')
+                    location = location_elem.text.strip() if location_elem else "Zimbabwe"
                     
-                    # Look for job link
-                    job_link = heading.find('a')
-                    job_url = job_link.get('href', '') if job_link else ""
+                    summary_elem = job.find('div', class_='summary')
+                    description = summary_elem.text.strip() if summary_elem else "See full description on Indeed"
                     
-                    # Find the parent container to get additional info
-                    parent = heading.find_parent()
-                    if parent:
-                        # Look for date information
-                        date_text = ""
-                        location = "Zimbabwe"  # Default location
-                        
-                        # Search for text patterns that indicate date and location
-                        parent_text = parent.get_text()
-                        
-                        # Look for date patterns like "August 15, 2025"
-                        date_match = re.search(r'\b\w+\s+\d{1,2},?\s+\d{4}\b', parent_text)
-                        if date_match:
-                            date_text = date_match.group()
-                        
-                        # Look for location names
-                        location_words = ['Harare', 'Bulawayo', 'Mutare', 'Gweru', 'Masvingo', 'Zimbabwe']
-                        for loc in location_words:
-                            if loc in parent_text:
-                                location = loc
-                                break
+                    expiry_date = "N/A"
                     
-                    # Convert date to expiry format
-                    expiry_date = f"Expires {date_text}" if date_text else "N/A"
-                    
-                    description = f"Job posted on Jobs Zimbabwe. Full details available on website."
-                    
-                    # Generate job ID
-                    job_id = f"JZ_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
-                    
-                    # Classify job category
+                    job_id = f"ID_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
                     category = classify_job_category(title, description, company)
                     
-                    # Only include if it looks like a valid job
-                    if title and title != "N/A":
-                        # Get email (but don't delay too much in test mode)
-                        apply_email = "Apply on Jobs Zimbabwe"
-                        if job_url:
-                            apply_email = self.extract_email_from_job_page(job_url)
-                        
-                        jobs_data.append({
-                            "id": job_id,
-                            "Job Title": clean_text(title),
-                            "title": clean_text(title),
-                            "Company": clean_text(company),
-                            "company": clean_text(company),
-                            "Location": clean_text(location),
-                            "Expiry Date": clean_text(expiry_date),
-                            "closingDate": clean_text(expiry_date),
-                            "Description": clean_text(description),
-                            "description": clean_text(description),
-                            "Category": category,
-                            "category": category,
-                            "Source Site": self.site_name,
-                            "sourceSite": self.site_name,
-                            "Apply Email": apply_email,
-                            "applyEmail": apply_email
-                        })
-                        
-                        # Small delay between email extractions
-                        time.sleep(0.3)
+                    jobs_data.append({
+                        "id": job_id,
+                        "Job Title": clean_text(title),
+                        "title": clean_text(title),
+                        "Company": clean_text(company),
+                        "company": clean_text(company),
+                        "Location": clean_text(location),
+                        "Expiry Date": clean_text(expiry_date),
+                        "closingDate": clean_text(expiry_date),
+                        "Description": clean_text(description),
+                        "description": clean_text(description),
+                        "Category": category,
+                        "category": category,
+                        "Source Site": self.site_name,
+                        "sourceSite": self.site_name,
+                        "Apply Email": "Apply on Jobs Zimbabwe",
+                        "applyEmail": "Apply on Jobs Zimbabwe"
+                    })
                     
                 except Exception as e:
                     logging.warning(f"Error processing Jobs Zimbabwe job {job_index}: {e}")
                     continue
             
             return jobs_data, soup
-            
         except Exception as e:
             logging.error(f"Error scraping Jobs Zimbabwe page {page_num}: {e}")
             return [], None
 
 class ZimboJobsScraper(JobScraper):
-    """Scraper for ZimboJobs"""
+    """Scraper for Zimbo Jobs"""
     
     def __init__(self):
-        super().__init__("ZimboJobs", "https://zimbojobs.com/")
+        super().__init__("Jobs Zimbabwe", "https://zimbojobs.com/jobs")
     
     def get_total_pages(self, soup):
         """Extract total number of pages from pagination."""
         try:
-            # Look for any pagination indicators
-            pagination_links = soup.find_all('a', href=True)
-            max_page = 1
-            
-            for link in pagination_links:
-                href = link.get('href', '')
-                text = link.get_text(strip=True)
-                
-                # Check for page numbers in links
-                if text.isdigit():
-                    max_page = max(max_page, int(text))
-                
-                # Check for page parameters in URLs
-                if 'page=' in href:
-                    page_match = re.search(r'page=(\d+)', href)
-                    if page_match:
-                        max_page = max(max_page, int(page_match.group(1)))
-            
-            return min(max_page, 20)  # Limit to 50 pages for safety
+            pagination = soup.find('nav', class_='np') or soup.find('div', class_='np')
+            if pagination:
+                page_links = pagination.find_all('a')
+                max_page = 1
+                for link in page_links:
+                    if link.text.strip().isdigit():
+                        max_page = max(max_page, int(link.text.strip()))
+                return min(max_page, 15)  # Limit to 15 pages
         except Exception as e:
-            logging.warning(f"Could not determine total pages for ZimboJobs: {e}")
+            logging.warning(f"Could not determine total pages for Indeed: {e}")
         return 1
 
     def extract_email_from_job_page(self, job_url):
-        """Extract email from ZimboJobs job detail page."""
+        """Indeed doesn't typically expose emails directly."""
+        return "ZimboJobs.com"
+
+    def scrape_page(self, url, page_num=1):
+        """Scrape jobs from Zimbo Jobs."""
         try:
-            if not job_url.startswith('http'):
-                job_url = 'https://zimbojobs.com' + job_url
-            
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
             }
             
-            response = requests.get(job_url, headers=headers, timeout=10)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
-            # Look for email in the job description
-            page_text = soup.get_text()
-            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-            emails = re.findall(email_pattern, page_text)
-            
-            return emails[0] if emails else "Apply on ZimboJobs"
-        except Exception as e:
-            logging.warning(f"Could not extract email from {job_url}: {e}")
-            return "Apply on ZimboJobs"
-
-    def scrape_page(self, url, page_num=1):
-        """Scrape jobs from ZimboJobs."""
-        try:
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.5',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1'
-            }
-            
             if page_num > 1:
-                page_url = f"{url}?page={page_num}"
+                page_url = f"{url}?start={10 * (page_num - 1)}"
             else:
                 page_url = url
             
-            response = requests.get(page_url, headers=headers, timeout=20)
+            response = requests.get(page_url, headers=headers, timeout=15)
             response.raise_for_status()
-            
-            # Wait a bit for any JS to load (though we can't execute it)
-            time.sleep(2)
-            
             soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Indeed job card selectors
+            job_listings = soup.find_all('div', class_='jobsearch-SerpJobCard') or soup.find_all('div', class_='job_seen_beacon')
             
             jobs_data = []
             
-            # Since the site uses JavaScript, try to find any job-related content
-            # Look for common job-related patterns in the HTML
-            
-            # Try different selectors that might contain job listings
-            possible_job_containers = [
-                soup.find_all('div', class_=re.compile(r'job|listing|card|item', re.I)),
-                soup.find_all('article'),
-                soup.find_all('li'),
-                soup.find_all('div', {'data-job': True}),
-                soup.find_all('div', {'id': re.compile(r'job', re.I)}),
-                soup.find_all('a', href=re.compile(r'job|vacancy', re.I))
-            ]
-            
-            # Also look for any structured data or JSON
-            script_tags = soup.find_all('script', type='application/ld+json')
-            for script in script_tags:
+            for job_index, job in enumerate(job_listings):
                 try:
-                    data = json.loads(script.string)
-                    if isinstance(data, dict) and 'JobPosting' in str(data):
-                        # Found structured job data
-                        if isinstance(data, list):
-                            for item in data:
-                                if item.get('@type') == 'JobPosting':
-                                    jobs_data.append(self._parse_json_job(item, page_num, len(jobs_data)))
-                        elif data.get('@type') == 'JobPosting':
-                            jobs_data.append(self._parse_json_job(data, page_num, 0))
-                except:
+                    title_elem = job.find('h2', class_='title') or job.find('a', attrs={'data-jk': True})
+                    title = title_elem.text.strip() if title_elem else "N/A"
+                    
+                    company_elem = job.find('span', class_='company') or job.find('a', class_='turnstileLink')
+                    company = company_elem.text.strip() if company_elem else "N/A"
+                    
+                    location_elem = job.find('div', class_='recJobLoc') or job.find('div', class_='companyLocation')
+                    location = location_elem.text.strip() if location_elem else "Zimbabwe"
+                    
+                    summary_elem = job.find('div', class_='summary')
+                    description = summary_elem.text.strip() if summary_elem else "See full description on Indeed"
+                    
+                    expiry_date = "N/A"
+                    
+                    job_id = f"ID_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
+                    category = classify_job_category(title, description, company)
+                    
+                    jobs_data.append({
+                        "id": job_id,
+                        "Job Title": clean_text(title),
+                        "title": clean_text(title),
+                        "Company": clean_text(company),
+                        "company": clean_text(company),
+                        "Location": clean_text(location),
+                        "Expiry Date": clean_text(expiry_date),
+                        "closingDate": clean_text(expiry_date),
+                        "Description": clean_text(description),
+                        "description": clean_text(description),
+                        "Category": category,
+                        "category": category,
+                        "Source Site": self.site_name,
+                        "sourceSite": self.site_name,
+                        "Apply Email": "Apply on ZimboJobs",
+                        "applyEmail": "Apply on ZimboJobs"
+                    })
+                    
+                except Exception as e:
+                    logging.warning(f"Error processing Zimbo Jobs {job_index}: {e}")
                     continue
-            
-            # If we found JSON jobs, return them
-            if jobs_data:
-                return jobs_data, soup
-            
-            # Otherwise, try to parse HTML
-            job_count = 0
-            
-            for container_list in possible_job_containers:
-                for job_elem in container_list:
-                    try:
-                        text_content = job_elem.get_text(strip=True)
-                        
-                        # Skip if too short or doesn't look like a job
-                        if len(text_content) < 20:
-                            continue
-                        
-                        # Look for job-like patterns
-                        if not any(keyword in text_content.lower() for keyword in 
-                                 ['job', 'position', 'vacancy', 'career', 'hiring', 'apply', 'work']):
-                            continue
-                        
-                        # Try to extract basic info
-                        lines = [line.strip() for line in text_content.split('\n') if line.strip()]
-                        
-                        if len(lines) < 2:
-                            continue
-                        
-                        title = lines[0] if lines else "Job Opportunity"
-                        company = "ZimboJobs Employer"
-                        location = "Zimbabwe"
-                        description = " ".join(lines[:3]) if len(lines) >= 3 else text_content[:200]
-                        
-                        # Look for links
-                        job_link = job_elem.find('a')
-                        job_url = job_link.get('href', '') if job_link else ""
-                        
-                        # Generate job data
-                        job_id = f"ZJ_{page_num:03d}_{job_count+1:03d}_{datetime.now().strftime('%Y%m%d')}"
-                        category = classify_job_category(title, description, company)
-                        
-                        jobs_data.append({
-                            "id": job_id,
-                            "Job Title": clean_text(title),
-                            "title": clean_text(title),
-                            "Company": clean_text(company),
-                            "company": clean_text(company),
-                            "Location": clean_text(location),
-                            "Expiry Date": "N/A",
-                            "closingDate": "N/A",
-                            "Description": clean_text(description),
-                            "description": clean_text(description),
-                            "Category": category,
-                            "category": category,
-                            "Source Site": self.site_name,
-                            "sourceSite": self.site_name,
-                            "Apply Email": "Apply on ZimboJobs",
-                            "applyEmail": "Apply on ZimboJobs"
-                        })
-                        
-                        job_count += 1
-                        
-                        # Limit jobs per page
-                        if job_count >= 10:
-                            break
-                        
-                    except Exception as e:
-                        logging.warning(f"Error processing ZimboJobs element: {e}")
-                        continue
-                
-                if job_count >= 10:
-                    break
-            
-            # If still no jobs found, create a fallback entry to show the site is being checked
-            if not jobs_data:
-                job_id = f"ZJ_{page_num:03d}_001_{datetime.now().strftime('%Y%m%d')}"
-                jobs_data.append({
-                    "id": job_id,
-                    "Job Title": "Jobs Available - Visit ZimboJobs.com",
-                    "title": "Jobs Available - Visit ZimboJobs.com",
-                    "Company": "Various Employers",
-                    "company": "Various Employers",
-                    "Location": "Zimbabwe",
-                    "Expiry Date": "N/A",
-                    "closingDate": "N/A",
-                    "Description": "Job listings may be loaded dynamically. Visit zimbojobs.com directly to view current opportunities.",
-                    "description": "Job listings may be loaded dynamically. Visit zimbojobs.com directly to view current opportunities.",
-                    "Category": "General",
-                    "category": "General",
-                    "Source Site": self.site_name,
-                    "sourceSite": self.site_name,
-                    "Apply Email": "Apply on ZimboJobs",
-                    "applyEmail": "Apply on ZimboJobs"
-                })
             
             return jobs_data, soup
             
         except Exception as e:
-            logging.error(f"Error scraping ZimboJobs page {page_num}: {e}")
+            logging.error(f"Error scraping Zimbo Jobs {page_num}: {e}")
             return [], None
-    
-    def _parse_json_job(self, job_data, page_num, job_index):
-        """Parse a job from JSON-LD structured data."""
-        title = job_data.get('title', 'Job Opportunity')
-        company = job_data.get('hiringOrganization', {}).get('name', 'ZimboJobs Employer')
-        location = job_data.get('jobLocation', {}).get('address', {}).get('addressLocality', 'Zimbabwe')
-        description = job_data.get('description', 'See full description on ZimboJobs')
-        
-        job_id = f"ZJ_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
-        category = classify_job_category(title, description, company)
-        
-        return {
-            "id": job_id,
-            "Job Title": clean_text(title),
-            "title": clean_text(title),
-            "Company": clean_text(company),
-            "company": clean_text(company),
-            "Location": clean_text(location),
-            "Expiry Date": "N/A",
-            "closingDate": "N/A",
-            "Description": clean_text(description[:500]),  # Limit description length
-            "description": clean_text(description[:500]),
-            "Category": category,
-            "category": category,
-            "Source Site": self.site_name,
-            "sourceSite": self.site_name,
-            "Apply Email": "Apply on ZimboJobs",
-            "applyEmail": "Apply on ZimboJobs"
-        }
 
 def scrape_multiple_sites(test_mode=False):
     """Main function to scrape jobs from multiple websites."""
