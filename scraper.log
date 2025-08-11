@@ -1540,3 +1540,100 @@
 2025-08-12 00:23:26,591 - INFO - Jobs filtered to show only those expiring on or after 2025-08-12
 2025-08-12 00:23:26,591 - INFO - Email extraction success rate: 367/385 (95.3%)
 2025-08-12 00:23:26,591 - INFO - Jobs by site: {'VacancyMail': 99, 'Jobs Zimbabwe': 285, 'ZimboJobs': 1}
+2025-08-12 00:38:45,172 - INFO - Starting the web scraper...
+2025-08-12 00:38:45,173 - INFO - Starting multi-site job scraping...
+2025-08-12 00:38:45,174 - INFO - Starting job scraping for VacancyMail...
+2025-08-12 00:38:59,845 - INFO - Scraped 10 jobs from VacancyMail
+2025-08-12 00:39:01,847 - INFO - Starting job scraping for Jobs Zimbabwe...
+2025-08-12 00:39:31,183 - INFO - Scraped 15 jobs from Jobs Zimbabwe
+2025-08-12 00:39:33,185 - INFO - Starting job scraping for ZimboJobs...
+2025-08-12 00:39:36,163 - INFO - Scraped 1 jobs from ZimboJobs
+2025-08-12 00:39:38,165 - INFO - Starting job scraping for VacancyBox...
+2025-08-12 00:39:38,434 - INFO - Scraped 0 jobs from VacancyBox
+2025-08-12 00:39:40,463 - INFO - JSON data saved to scraped_data_20250812_003940.json
+2025-08-12 00:39:40,471 - INFO - Also saved as scraped_data.csv and scraped_data.json
+2025-08-12 00:39:40,480 - INFO - Successfully scraped 26 current jobs from 4 sites
+2025-08-12 00:39:40,481 - INFO - Data saved to scraped_data_20250812_003940.csv and scraped_data_20250812_003940.json at 2025-08-12 00:39:40.481088
+2025-08-12 00:39:40,481 - INFO - Jobs filtered to show only those expiring on or after 2025-08-12
+2025-08-12 00:39:40,481 - INFO - Email extraction success rate: 22/26 (84.6%)
+2025-08-12 00:39:40,481 - INFO - Jobs by site: {'VacancyMail': 10, 'Jobs Zimbabwe': 15, 'ZimboJobs': 1, 'VacancyBox': 0}
+2025-08-12 00:49:17,087 - INFO - Starting the web scraper...
+2025-08-12 00:49:17,087 - INFO - Starting multi-site job scraping...
+2025-08-12 00:49:17,088 - INFO - Starting job scraping for VacancyMail...
+2025-08-12 00:49:31,455 - INFO - Scraped 10 jobs from VacancyMail
+2025-08-12 00:49:33,456 - INFO - Starting job scraping for Jobs Zimbabwe...
+2025-08-12 00:50:01,772 - INFO - Scraped 15 jobs from Jobs Zimbabwe
+2025-08-12 00:50:03,774 - INFO - Starting job scraping for ZimboJobs...
+2025-08-12 00:50:06,633 - INFO - Scraped 1 jobs from ZimboJobs
+2025-08-12 00:50:08,634 - INFO - Starting job scraping for VacancyBox...
+2025-08-12 00:50:08,906 - INFO - VacancyBox: Found 30 total links on page
+2025-08-12 00:50:08,906 - INFO - VacancyBox: Found 0 job-specific links
+2025-08-12 00:50:08,906 - INFO - VacancyBox: Successfully parsed 0 jobs from page 1
+2025-08-12 00:50:08,907 - INFO - Scraped 0 jobs from VacancyBox
+2025-08-12 00:50:10,923 - INFO - JSON data saved to scraped_data_20250812_005010.json
+2025-08-12 00:50:10,927 - INFO - Also saved as scraped_data.csv and scraped_data.json
+2025-08-12 00:50:10,931 - INFO - Successfully scraped 26 current jobs from 4 sites
+2025-08-12 00:50:10,931 - INFO - Data saved to scraped_data_20250812_005010.csv and scraped_data_20250812_005010.json at 2025-08-12 00:50:10.931646
+2025-08-12 00:50:10,931 - INFO - Jobs filtered to show only those expiring on or after 2025-08-12
+2025-08-12 00:50:10,932 - INFO - Email extraction success rate: 22/26 (84.6%)
+2025-08-12 00:50:10,932 - INFO - Jobs by site: {'VacancyMail': 10, 'Jobs Zimbabwe': 15, 'ZimboJobs': 1, 'VacancyBox': 0}
+2025-08-12 00:51:16,203 - INFO - Starting the web scraper...
+2025-08-12 00:51:16,204 - INFO - Starting multi-site job scraping...
+2025-08-12 00:51:16,205 - INFO - Starting job scraping for VacancyMail...
+2025-08-12 00:51:30,950 - INFO - Scraped 10 jobs from VacancyMail
+2025-08-12 00:51:32,952 - INFO - Starting job scraping for Jobs Zimbabwe...
+2025-08-12 00:52:02,134 - INFO - Scraped 15 jobs from Jobs Zimbabwe
+2025-08-12 00:52:04,136 - INFO - Starting job scraping for ZimboJobs...
+2025-08-12 00:52:07,470 - INFO - Scraped 1 jobs from ZimboJobs
+2025-08-12 00:52:09,470 - INFO - Starting job scraping for VacancyBox...
+2025-08-12 00:52:09,705 - INFO - VacancyBox: Found 30 total links on page
+2025-08-12 00:52:09,705 - INFO - VacancyBox: Found 0 job-specific links
+2025-08-12 00:52:09,706 - INFO - VacancyBox: Successfully parsed 0 jobs from page 1
+2025-08-12 00:52:09,706 - INFO - Scraped 0 jobs from VacancyBox
+2025-08-12 00:52:11,722 - INFO - JSON data saved to scraped_data_20250812_005211.json
+2025-08-12 00:52:11,727 - INFO - Also saved as scraped_data.csv and scraped_data.json
+2025-08-12 00:52:11,731 - INFO - Successfully scraped 26 current jobs from 4 sites
+2025-08-12 00:52:11,731 - INFO - Data saved to scraped_data_20250812_005211.csv and scraped_data_20250812_005211.json at 2025-08-12 00:52:11.731514
+2025-08-12 00:52:11,731 - INFO - Jobs filtered to show only those expiring on or after 2025-08-12
+2025-08-12 00:52:11,732 - INFO - Email extraction success rate: 22/26 (84.6%)
+2025-08-12 00:52:11,732 - INFO - Jobs by site: {'VacancyMail': 10, 'Jobs Zimbabwe': 15, 'ZimboJobs': 1, 'VacancyBox': 0}
+2025-08-12 00:56:03,643 - INFO - Starting the web scraper...
+2025-08-12 00:56:03,644 - INFO - Starting multi-site job scraping...
+2025-08-12 00:56:03,644 - INFO - Starting job scraping for VacancyMail...
+2025-08-12 00:56:18,284 - INFO - Scraped 10 jobs from VacancyMail
+2025-08-12 00:56:20,285 - INFO - Starting job scraping for Jobs Zimbabwe...
+2025-08-12 00:56:51,160 - INFO - Scraped 15 jobs from Jobs Zimbabwe
+2025-08-12 00:56:53,162 - INFO - Starting job scraping for ZimboJobs...
+2025-08-12 00:56:56,052 - INFO - Scraped 1 jobs from ZimboJobs
+2025-08-12 00:56:58,054 - INFO - Starting job scraping for VacancyBox...
+2025-08-12 00:56:58,617 - INFO - VacancyBox: Found 0 total links on page
+2025-08-12 00:56:58,617 - INFO - VacancyBox: Found 0 job-specific links
+2025-08-12 00:56:58,617 - INFO - VacancyBox: Successfully parsed 0 jobs from page 1
+2025-08-12 00:56:58,618 - INFO - Scraped 0 jobs from VacancyBox
+2025-08-12 00:57:00,642 - INFO - JSON data saved to scraped_data_20250812_005700.json
+2025-08-12 00:57:00,651 - INFO - Also saved as scraped_data.csv and scraped_data.json
+2025-08-12 00:57:00,660 - INFO - Successfully scraped 26 current jobs from 4 sites
+2025-08-12 00:57:00,661 - INFO - Data saved to scraped_data_20250812_005700.csv and scraped_data_20250812_005700.json at 2025-08-12 00:57:00.660821
+2025-08-12 00:57:00,661 - INFO - Jobs filtered to show only those expiring on or after 2025-08-12
+2025-08-12 00:57:00,661 - INFO - Email extraction success rate: 22/26 (84.6%)
+2025-08-12 00:57:00,661 - INFO - Jobs by site: {'VacancyMail': 10, 'Jobs Zimbabwe': 15, 'ZimboJobs': 1, 'VacancyBox': 0}
+2025-08-12 00:58:50,703 - INFO - Starting the web scraper...
+2025-08-12 00:58:50,703 - INFO - Starting multi-site job scraping...
+2025-08-12 00:58:50,704 - INFO - Starting job scraping for VacancyMail...
+2025-08-12 00:59:05,308 - INFO - Scraped 10 jobs from VacancyMail
+2025-08-12 00:59:07,310 - INFO - Starting job scraping for Jobs Zimbabwe...
+2025-08-12 00:59:37,782 - INFO - Scraped 15 jobs from Jobs Zimbabwe
+2025-08-12 00:59:39,786 - INFO - Starting job scraping for ZimboJobs...
+2025-08-12 00:59:42,668 - INFO - Scraped 1 jobs from ZimboJobs
+2025-08-12 00:59:44,669 - INFO - Starting job scraping for VacancyBox...
+2025-08-12 00:59:44,996 - INFO - VacancyBox: Found 0 total links on page
+2025-08-12 00:59:44,996 - INFO - VacancyBox: Found 0 job-specific links
+2025-08-12 00:59:44,997 - INFO - VacancyBox: Created 1 placeholder jobs (site uses dynamic loading)
+2025-08-12 00:59:44,999 - INFO - Scraped 1 jobs from VacancyBox
+2025-08-12 00:59:47,021 - INFO - JSON data saved to scraped_data_20250812_005947.json
+2025-08-12 00:59:47,033 - INFO - Also saved as scraped_data.csv and scraped_data.json
+2025-08-12 00:59:47,040 - INFO - Successfully scraped 27 current jobs from 4 sites
+2025-08-12 00:59:47,041 - INFO - Data saved to scraped_data_20250812_005947.csv and scraped_data_20250812_005947.json at 2025-08-12 00:59:47.041182
+2025-08-12 00:59:47,041 - INFO - Jobs filtered to show only those expiring on or after 2025-08-12
+2025-08-12 00:59:47,041 - INFO - Email extraction success rate: 23/27 (85.2%)
+2025-08-12 00:59:47,042 - INFO - Jobs by site: {'VacancyMail': 10, 'Jobs Zimbabwe': 15, 'ZimboJobs': 1, 'VacancyBox': 1}
