@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import time
 import json
 from abc import ABC, abstractmethod
+from urllib.parse import urljoin
 
 # Configure logging
 logging.basicConfig(
@@ -1350,6 +1351,165 @@ class VacancyBoxScraper(JobScraper):
             logging.error(f"Error scraping VacancyBox page {page_num}: {e}")
             return [], None
 
+class RecruitmentMatterScraper(JobScraper):
+    """Scraper for https://www.recruitmentmattersafrica.com/careers/"""
+    
+    def __init__(self):
+        super().__init__("RecruitmentMatters", "https://www.recruitmentmattersafrica.com/careers/")
+        self.job_listings = []
+
+    def get_total_pages(self, soup):
+        """Extract total number of pages from pagination."""
+        try:
+            # Look for pagination elements - try multiple approaches
+            pagination = soup.find('ul', class_='pagination') or soup.find('div', class_='pagination') or soup.find('nav', class_='pagination')
+            
+            if pagination:
+                # Find all page links and get the highest number
+                page_links = pagination.find_all('a')
+                max_page = 1
+                
+                for link in page_links:
+                    link_text = link.get_text(strip=True)
+                    href = link.get('href', '')
+                    
+                    # Check visible digit links
+                    if link_text.isdigit():
+                        max_page = max(max_page, int(link_text))
+                    
+                    # Check for "Last" links
+                    elif 'last' in link_text.lower() and href:
+                        page_match = re.search(r'page[=\/](\d+)', href)
+                        if page_match:
+                            max_page = max(max_page, int(page_match.group(1)))
+                    
+                    # Check for page numbers in href even if text is not a digit (like "…" links)
+                    elif href and 'page=' in href:
+                        page_match = re.search(r'page=(\d+)', href)
+                        if page_match:
+                            page_num = int(page_match.group(1))
+                            max_page = max(max_page, page_num)
+                            
+                logging.info(f"Detected maximum page number from pagination: {max_page}")
+                return max_page
+                
+        except Exception as e:
+            logging.warning(f"Could not determine total pages: {e}")
+        
+        return 1  # Default to 1 page if can't determine
+
+    def extract_email_from_job_page(self, job_url):
+        """Extract email address from individual job detail page."""
+        try:
+            # Make URL absolute if it's relative
+            if job_url.startswith('/'):
+                job_url = 'https://www.recruitmentmattersafrica.com/careers/' + job_url
+            
+            response = requests.get(job_url, timeout=10)
+            response.raise_for_status()
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Extract all text from the page
+            page_text = soup.get_text()
+            
+            # Find email addresses using regex
+            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+            emails = re.findall(email_pattern, page_text)
+            
+            if emails:
+                # Return the first email found (usually the application email)
+                return emails[0]
+            else:
+                return "N/A"
+                
+        except Exception as e:
+            logging.warning(f"Could not extract email from {job_url}: {e}")
+            return "N/A"
+
+    def scrape_page(self, url, page_num=1):
+        """Scrape jobs from a specific page of VacancyMail."""
+        if page_num > 1:
+            # Check if URL already has parameters
+            separator = "&" if "?" in url else "?"
+            page_url = f"{url}{separator}page={page_num}"
+        else:
+            page_url = url
+        
+        try:
+            response = requests.get(page_url)
+            response.encoding = 'utf-8'
+            response.raise_for_status()
+            
+            soup = BeautifulSoup(response.text, 'html.parser')
+            job_listings = soup.find_all('a', class_='job-listing')
+            
+            jobs_data = []
+            expired_count = 0
+            
+            for job_index, job in enumerate(job_listings):
+                title = job.find('h3', class_='job-listing-title').text.strip() if job.find('h3', class_='job-listing-title') else "N/A"
+                company = job.find('h4', class_='job-listing-company').text.strip() if job.find('h4', class_='job-listing-company') else "N/A"
+                
+                # Extract job detail URL for email extraction
+                job_url = job.get('href', '')
+                
+                # Extract location and expiry date from the job listing footer
+                footer = job.find('div', class_='job-listing-footer')
+                if footer:
+                    # Location is typically the first <li> after the location icon
+                    location_icon = footer.find('i', class_='icon-material-outline-location-on')
+                    location = location_icon.find_parent('li').text.strip() if location_icon else "N/A"
+                    
+                    # Expiry date is typically the <li> with the expiry icon
+                    expiry_icon = footer.find('i', class_='icon-material-outline-access-time')
+                    expiry_date = expiry_icon.find_parent('li').text.strip() if expiry_icon else "N/A"
+                else:
+                    location = "N/A"
+                    expiry_date = "N/A"
+
+                description = job.find('p', class_='job-listing-text').text.strip() if job.find('p', class_='job-listing-text') else "N/A"
+                
+                # Only include jobs that haven't expired
+                if is_job_current(expiry_date):
+                    # Extract email from job detail page
+                    apply_email = self.extract_email_from_job_page(job_url) if job_url else "N/A"
+                    
+                    # Generate unique ID for the job
+                    job_id = f"VM_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
+                    
+                    # Classify job category
+                    category = classify_job_category(title, description, company)
+                    
+                    jobs_data.append({
+                        "id": job_id,
+                        "Job Title": clean_text(title),
+                        "title": clean_text(title),
+                        "Company": clean_text(company),
+                        "company": clean_text(company),
+                        "Location": clean_text(location),
+                        "Expiry Date": clean_text(expiry_date),
+                        "closingDate": clean_text(expiry_date),
+                        "Description": clean_text(description),
+                        "description": clean_text(description),
+                        "Category": category,
+                        "category": category,
+                        "Source Site": self.site_name,
+                        "sourceSite": self.site_name,
+                        "Apply Email": apply_email,
+                        "applyEmail": apply_email
+                    })
+                    
+                    # Add a small delay to be respectful when scraping individual job pages
+                    time.sleep(0.5)
+                else:
+                    expired_count += 1
+            
+            return jobs_data, soup
+            
+        except Exception as e:
+            logging.error(f"Error scraping page {page_num} of {self.site_name}: {e}")
+            return [], None
+
 def scrape_multiple_sites(test_mode=False):
     """Main function to scrape jobs from multiple websites."""
     logging.info("Starting multi-site job scraping...")
@@ -1363,6 +1523,7 @@ def scrape_multiple_sites(test_mode=False):
         JobsZimbabweScraper(),
         ZimboJobsScraper(),
         VacancyBoxScraper(),
+        RecruitmentMatterScraper()
     ]
     
     all_jobs_data = []

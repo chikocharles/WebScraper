@@ -1753,3 +1753,33 @@
 2025-08-12 02:25:41,657 - INFO - Jobs filtered to show only those expiring on or after 2025-08-12
 2025-08-12 02:25:41,657 - INFO - Email extraction success rate: 389/405 (96.0%)
 2025-08-12 02:25:41,657 - INFO - Jobs by site: {'VacancyMail': 99, 'Jobs Zimbabwe': 300, 'ZimboJobs': 1, 'VacancyBox': 5}
+2025-08-15 14:36:44,479 - INFO - Starting the web scraper...
+2025-08-15 14:36:44,481 - INFO - Starting multi-site job scraping...
+2025-08-15 14:36:44,481 - INFO - Starting job scraping for VacancyMail...
+2025-08-15 14:36:56,325 - INFO - Detected maximum page number from pagination: 41
+2025-08-15 14:39:41,445 - INFO - Scraped 115 jobs from VacancyMail
+2025-08-15 14:39:43,446 - INFO - Starting job scraping for Jobs Zimbabwe...
+2025-08-15 14:49:02,222 - INFO - Scraped 300 jobs from Jobs Zimbabwe
+2025-08-15 14:49:04,223 - INFO - Starting job scraping for ZimboJobs...
+2025-08-15 14:49:07,333 - INFO - Scraped 1 jobs from ZimboJobs
+2025-08-15 14:49:09,333 - INFO - Starting job scraping for VacancyBox...
+2025-08-15 14:49:09,334 - INFO - VacancyBox: Attempting to fetch https://vacancybox.co.zw/
+2025-08-15 14:49:10,721 - INFO - VacancyBox: Got response with 15608 characters
+2025-08-15 14:49:10,722 - INFO - VacancyBox: Page title: No title
+2025-08-15 14:49:10,722 - INFO - VacancyBox: Found 0 job links, 0 total links
+2025-08-15 14:49:10,722 - WARNING - VacancyBox: No links found - possible bot detection
+2025-08-15 14:49:16,597 - INFO - VacancyBox: Retry found 0 job links, 0 total links
+2025-08-15 14:49:16,597 - INFO - VacancyBox: Attempting alternative scraping method
+2025-08-15 14:49:20,831 - INFO - VacancyBox: Created 5 jobs from known listings
+2025-08-15 14:49:20,831 - INFO - VacancyBox: Successfully scraped 5 jobs from page 1
+2025-08-15 14:49:20,832 - INFO - VacancyBox: Determined total pages: 1
+2025-08-15 14:49:20,832 - INFO - Scraped 5 jobs from VacancyBox
+2025-08-15 14:49:22,832 - INFO - Starting job scraping for RecruitmentMatters...
+2025-08-15 14:49:24,194 - INFO - Scraped 0 jobs from RecruitmentMatters
+2025-08-15 14:49:26,215 - INFO - JSON data saved to scraped_data_20250815_144926.json
+2025-08-15 14:49:26,221 - INFO - Also saved as scraped_data.csv and scraped_data.json
+2025-08-15 14:49:26,228 - INFO - Successfully scraped 421 current jobs from 5 sites
+2025-08-15 14:49:26,230 - INFO - Data saved to scraped_data_20250815_144926.csv and scraped_data_20250815_144926.json at 2025-08-15 14:49:26.228457
+2025-08-15 14:49:26,230 - INFO - Jobs filtered to show only those expiring on or after 2025-08-15
+2025-08-15 14:49:26,230 - INFO - Email extraction success rate: 400/421 (95.0%)
+2025-08-15 14:49:26,230 - INFO - Jobs by site: {'VacancyMail': 115, 'Jobs Zimbabwe': 300, 'ZimboJobs': 1, 'VacancyBox': 5, 'RecruitmentMatters': 0}
