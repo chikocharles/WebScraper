@@ -793,7 +793,7 @@ class ZimboJobsScraper(JobScraper):
                         
                         # Look for links
                         job_link = job_elem.find('a')
-                        job_url = job_link.get('href', '') if job_link else ""
+                        job_url = job_link.get('href', '') if job_link else ''
                         
                         # Generate job data
                         job_id = f"ZJ_{page_num:03d}_{job_count+1:03d}_{datetime.now().strftime('%Y%m%d')}"
@@ -1356,130 +1356,196 @@ class RecruitmentMatterScraper(JobScraper):
     
     def __init__(self):
         super().__init__("RecruitmentMatters", "https://www.recruitmentmattersafrica.com/careers/")
-        self.job_listings = []
+        self.headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+        }
 
     def get_total_pages(self, soup):
-        """Extract total number of pages from pagination."""
+        """Extract total number of pages from pagination (robust)."""
         try:
-            # Look for pagination elements - try multiple approaches
-            pagination = soup.find('ul', class_='pagination') or soup.find('div', class_='pagination') or soup.find('nav', class_='pagination')
-            
-            if pagination:
-                # Find all page links and get the highest number
-                page_links = pagination.find_all('a')
-                max_page = 1
-                
-                for link in page_links:
-                    link_text = link.get_text(strip=True)
-                    href = link.get('href', '')
-                    
-                    # Check visible digit links
-                    if link_text.isdigit():
-                        max_page = max(max_page, int(link_text))
-                    
-                    # Check for "Last" links
-                    elif 'last' in link_text.lower() and href:
-                        page_match = re.search(r'page[=\/](\d+)', href)
-                        if page_match:
-                            max_page = max(max_page, int(page_match.group(1)))
-                    
-                    # Check for page numbers in href even if text is not a digit (like "…" links)
-                    elif href and 'page=' in href:
-                        page_match = re.search(r'page=(\d+)', href)
-                        if page_match:
-                            page_num = int(page_match.group(1))
-                            max_page = max(max_page, page_num)
-                            
-                logging.info(f"Detected maximum page number from pagination: {max_page}")
-                return max_page
-                
+            max_page = 1
+            # common WP pagination containers
+            pagination = soup.find_all('a', href=True)
+            for a in pagination:
+                txt = a.get_text(strip=True)
+                href = a['href']
+                if txt.isdigit():
+                    max_page = max(max_page, int(txt))
+                # /page/2/ style
+                m = re.search(r'/page/(\d+)/', href)
+                if m:
+                    max_page = max(max_page, int(m.group(1)))
+                # ?paged= style
+                m2 = re.search(r'pag(?:e|ed)=(\d+)', href)
+                if m2:
+                    max_page = max(max_page, int(m2.group(1)))
+            return min(max_page, 50)
         except Exception as e:
-            logging.warning(f"Could not determine total pages: {e}")
-        
-        return 1  # Default to 1 page if can't determine
+            logging.warning(f"RecruitmentMatters: could not determine pages: {e}")
+            return 1
 
     def extract_email_from_job_page(self, job_url):
-        """Extract email address from individual job detail page."""
+        """Extract email from job detail page (mailto links first, then regex)."""
         try:
-            # Make URL absolute if it's relative
-            if job_url.startswith('/'):
-                job_url = 'https://www.recruitmentmattersafrica.com/careers/' + job_url
-            
-            response = requests.get(job_url, timeout=10)
-            response.raise_for_status()
-            soup = BeautifulSoup(response.text, 'html.parser')
-            
-            # Extract all text from the page
-            page_text = soup.get_text()
-            
-            # Find email addresses using regex
-            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-            emails = re.findall(email_pattern, page_text)
-            
-            if emails:
-                # Return the first email found (usually the application email)
-                return emails[0]
-            else:
-                return "N/A"
-                
+            job_url = urljoin(self.base_url, job_url)
+            r = requests.get(job_url, headers=self.headers, timeout=12)
+            r.raise_for_status()
+            soup = BeautifulSoup(r.text, 'html.parser')
+            # 1) mailto links
+            mailtos = soup.find_all('a', href=re.compile(r'^mailto:', re.I))
+            for m in mailtos:
+                href = m.get('href', '')
+                email = re.sub(r'^mailto:', '', href, flags=re.I).split('?')[0].strip()
+                if email:
+                    if 'noreply' not in email.lower():
+                        return email
+            # 2) regex in visible text (including obfuscated)
+            page_text = soup.get_text(separator=' ')
+            patterns = [
+                r'\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b',
+                r'[A-Za-z0-9._%+\-]+\s*\[at\]\s*[A-Za-z0-9.\-]+\s*\[dot\]\s*[A-Za-z]{2,}'
+            ]
+            for p in patterns:
+                found = re.findall(p, page_text, flags=re.I)
+                if found:
+                    # clean obfuscated
+                    candidate = found[0].replace(' ', '').replace('[at]', '@').replace('[dot]', '.')
+                    candidate = candidate.lower()
+                    if not any(x in candidate for x in ('noreply', 'no-reply', 'donotreply')):
+                        return candidate
+            return "Apply on RecruitmentMatters"
         except Exception as e:
-            logging.warning(f"Could not extract email from {job_url}: {e}")
-            return "N/A"
+            logging.warning(f"RecruitmentMatters: could not extract email from {job_url}: {e}")
+            return "Apply on RecruitmentMatters"
 
     def scrape_page(self, url, page_num=1):
-        """Scrape jobs from a specific page of VacancyMail."""
-        if page_num > 1:
-            # Check if URL already has parameters
-            separator = "&" if "?" in url else "?"
-            page_url = f"{url}{separator}page={page_num}"
-        else:
-            page_url = url
-        
+        """Scrape jobs from RecruitmentMatters careers page (list -> detail)."""
         try:
-            response = requests.get(page_url)
-            response.encoding = 'utf-8'
-            response.raise_for_status()
-            
-            soup = BeautifulSoup(response.text, 'html.parser')
-            job_listings = soup.find_all('a', class_='job-listing')
-            
-            jobs_data = []
-            expired_count = 0
-            
-            for job_index, job in enumerate(job_listings):
-                title = job.find('h3', class_='job-listing-title').text.strip() if job.find('h3', class_='job-listing-title') else "N/A"
-                company = job.find('h4', class_='job-listing-company').text.strip() if job.find('h4', class_='job-listing-company') else "N/A"
-                
-                # Extract job detail URL for email extraction
-                job_url = job.get('href', '')
-                
-                # Extract location and expiry date from the job listing footer
-                footer = job.find('div', class_='job-listing-footer')
-                if footer:
-                    # Location is typically the first <li> after the location icon
-                    location_icon = footer.find('i', class_='icon-material-outline-location-on')
-                    location = location_icon.find_parent('li').text.strip() if location_icon else "N/A"
-                    
-                    # Expiry date is typically the <li> with the expiry icon
-                    expiry_icon = footer.find('i', class_='icon-material-outline-access-time')
-                    expiry_date = expiry_icon.find_parent('li').text.strip() if expiry_icon else "N/A"
-                else:
-                    location = "N/A"
-                    expiry_date = "N/A"
+            # build page url: try /page/{n}/ first then query param fallback
+            if page_num > 1:
+                page_url = urljoin(self.base_url, f'page/{page_num}/')
+            else:
+                page_url = self.base_url
 
-                description = job.find('p', class_='job-listing-text').text.strip() if job.find('p', class_='job-listing-text') else "N/A"
-                
-                # Only include jobs that haven't expired
-                if is_job_current(expiry_date):
-                    # Extract email from job detail page
-                    apply_email = self.extract_email_from_job_page(job_url) if job_url else "N/A"
-                    
-                    # Generate unique ID for the job
-                    job_id = f"VM_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
-                    
-                    # Classify job category
-                    category = classify_job_category(title, description, company)
-                    
+            r = requests.get(page_url, headers=self.headers, timeout=15)
+            r.raise_for_status()
+            soup = BeautifulSoup(r.text, 'html.parser')
+
+            jobs_data = []
+            found_links = []
+
+            # Find candidate job link selectors (flexible)
+            # articles, h2/h3 titles with links, job list items
+            selectors = [
+                ('article', 'a'),
+                ('div.job', 'a'),
+                ('li.job', 'a'),
+                ('h2 a', None),
+                ('h3 a', None),
+                ('a', None)
+            ]
+
+            # Collect unique candidate links that look like job posts (contain 'careers' or 'career' or '/jobs/' or '/job/')
+            for sel, child in selectors:
+                elems = soup.select(sel) if child is None else soup.select(f"{sel} {child}")
+                for e in elems:
+                    a = e if e.name == 'a' else e.find('a', href=True)
+                    if not a:
+                        continue
+                    href = a.get('href')
+                    text = a.get_text(strip=True)
+                    if not href or not text:
+                        continue
+                    # filter likely job links
+                    if any(keyword in href.lower() for keyword in ['/careers', '/career', '/job', '/vacancy', '/jobs/']) or len(text) > 20:
+                        full = urljoin(self.base_url, href)
+                        if full not in found_links:
+                            found_links.append(full)
+
+            # If none found via heuristics, try all anchors but filter by length & keywords
+            if not found_links:
+                for a in soup.find_all('a', href=True):
+                    href = a['href']
+                    text = a.get_text(strip=True)
+                    if not text or len(text) < 10:
+                        continue
+                    if any(k in href.lower() for k in ['/careers', '/career', '/job', '/vacancy', '/jobs/']) or any(k in text.lower() for k in ['apply', 'vacancy', 'position', 'career']):
+                        full = urljoin(self.base_url, href)
+                        if full not in found_links:
+                            found_links.append(full)
+
+            # Limit reasonable number per page
+            if not page_num: 
+                limit = 10
+            else:
+                limit = 25
+            found_links = found_links[:limit]
+
+            for idx, job_url in enumerate(found_links):
+                try:
+                    # fetch detail page
+                    jr = requests.get(job_url, headers=self.headers, timeout=12)
+                    jr.raise_for_status()
+                    jsoup = BeautifulSoup(jr.text, 'html.parser')
+
+                    # Title
+                    title = None
+                    title_tag = jsoup.find(['h1', 'h2', 'h3'], text=True)
+                    if title_tag:
+                        title = title_tag.get_text(strip=True)
+                    if not title:
+                        # fallback: use link text from list page (if available)
+                        title = jsoup.title.string.strip() if jsoup.title and jsoup.title.string else "Job Opportunity"
+
+                    # Company heuristics: look for labels like "Company:" or meta tags
+                    company = "N/A"
+                    # check for meta
+                    meta_org = jsoup.find('meta', {'property': 'og:site_name'}) or jsoup.find('meta', {'name': 'author'})
+                    if meta_org and meta_org.get('content'):
+                        company = meta_org['content'].strip()
+                    # search plain text for "Company:" or "Employer:"
+                    page_text = jsoup.get_text(separator='\n')
+                    m_comp = re.search(r'(Company|Employer|Organisation|Organization)[:\s\-]+([^\n\r]{2,80})', page_text, flags=re.I)
+                    if m_comp:
+                        company = m_comp.group(2).strip()
+
+                    # Location heuristics
+                    location = "Zimbabwe"
+                    m_loc = re.search(r'(Location)[:\s\-]+([^\n\r]{2,60})', page_text, flags=re.I)
+                    if m_loc:
+                        location = m_loc.group(2).strip()
+
+                    # Posted date / expiry: find date patterns
+                    posted_date = None
+                    m_date = re.search(r'([A-Z][a-z]+ \d{1,2},? \d{4})', page_text)
+                    if m_date:
+                        posted_date = m_date.group(1)
+                    expiry_date = "N/A"
+                    if posted_date:
+                        try:
+                            posted_dt = datetime.strptime(posted_date.replace(',', ''), '%B %d %Y')
+                            expiry_dt = posted_dt + timedelta(days=30)
+                            expiry_date = f"Expires {expiry_dt.strftime('%B %d, %Y')}"
+                        except:
+                            expiry_date = "N/A"
+
+                    # Description: use main content areas
+                    content_container = jsoup.find('div', class_=re.compile(r'(entry-content|post-content|job-description)', re.I)) \
+                                         or jsoup.find('div', id=re.compile(r'(content|main)', re.I)) \
+                                         or jsoup.find('article')
+                    description = "Full details on website."
+                    if content_container:
+                        description = content_container.get_text(separator=' ', strip=True)[:400]
+
+                    # Email extraction (use dedicated method)
+                    apply_email = self.extract_email_from_job_page(job_url)
+
+                    # Generate ID
+                    job_id = f"RM_{page_num:03d}_{idx+1:03d}_{datetime.now().strftime('%Y%m%d')}"
+
+                    category = classify_job_category(title or "", description or "", company or "")
+
                     jobs_data.append({
                         "id": job_id,
                         "Job Title": clean_text(title),
@@ -1487,8 +1553,8 @@ class RecruitmentMatterScraper(JobScraper):
                         "Company": clean_text(company),
                         "company": clean_text(company),
                         "Location": clean_text(location),
-                        "Expiry Date": clean_text(expiry_date),
-                        "closingDate": clean_text(expiry_date),
+                        "Expiry Date": expiry_date,
+                        "closingDate": expiry_date,
                         "Description": clean_text(description),
                         "description": clean_text(description),
                         "Category": category,
@@ -1498,16 +1564,17 @@ class RecruitmentMatterScraper(JobScraper):
                         "Apply Email": apply_email,
                         "applyEmail": apply_email
                     })
-                    
-                    # Add a small delay to be respectful when scraping individual job pages
+
+                    # Respectful delay
                     time.sleep(0.5)
-                else:
-                    expired_count += 1
-            
+                except Exception as e:
+                    logging.warning(f"RecruitmentMatters: error processing {job_url}: {e}")
+                    continue
+
             return jobs_data, soup
-            
+
         except Exception as e:
-            logging.error(f"Error scraping page {page_num} of {self.site_name}: {e}")
+            logging.error(f"Error scraping RecruitmentMatters page {page_num}: {e}")
             return [], None
 
 def scrape_multiple_sites(test_mode=False):
