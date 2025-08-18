@@ -707,12 +707,7 @@ class ZimboJobsScraper(JobScraper):
         """Scrape jobs from ZimboJobs."""
         try:
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.5',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
             }
             
             if page_num > 1:
@@ -722,9 +717,6 @@ class ZimboJobsScraper(JobScraper):
             
             response = requests.get(page_url, headers=headers, timeout=20)
             response.raise_for_status()
-            
-            # Wait a bit for any JS to load (though we can't execute it)
-            time.sleep(2)
             
             soup = BeautifulSoup(response.text, 'html.parser')
             
@@ -806,8 +798,8 @@ class ZimboJobsScraper(JobScraper):
                             "Company": clean_text(company),
                             "company": clean_text(company),
                             "Location": clean_text(location),
-                            "Expiry Date": "N/A",
-                            "closingDate": "N/A",
+                            "Expiry Date": clean_text(expiry_date),
+                            "closingDate": clean_text(expiry_date),
                             "Description": clean_text(description),
                             "description": clean_text(description),
                             "Category": category,
@@ -1056,306 +1048,221 @@ class VacancyBoxScraper(JobScraper):
             return "Apply on VacancyBox"
 
     def scrape_page(self, url, page_num=1):
-        """Scrape jobs from VacancyBox with improved bot detection avoidance."""
+        """Scrape jobs from VacancyBox with improved selectors to capture more listings."""
         try:
-            # Create a session to maintain cookies and appear more like a real browser
             session = requests.Session()
-            
-            # Set comprehensive headers to mimic a real browser
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-                'Accept-Language': 'en-US,en;q=0.9',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Accept-Charset': 'utf-8, iso-8859-1;q=0.5',
-                'Connection': 'keep-alive',
-                'Upgrade-Insecure-Requests': '1',
-                'Cache-Control': 'max-age=0',
-                'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-                'sec-ch-ua-mobile': '?0',
-                'sec-ch-ua-platform': '"Windows"',
-                'Sec-Fetch-Dest': 'document',
-                'Sec-Fetch-Mode': 'navigate',
-                'Sec-Fetch-Site': 'none',
-                'Sec-Fetch-User': '?1',
-                'DNT': '1'
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8'
             }
-            
             session.headers.update(headers)
-            
-            # Build page URL
+
             if page_num > 1:
                 page_url = f"{url}page/{page_num}/"
             else:
                 page_url = url
-            
-            logging.info(f"VacancyBox: Attempting to fetch {page_url}")
-            
-            # Try multiple approaches to get content
+
+            logging.info(f"VacancyBox: Fetching {page_url}")
+            resp = session.get(page_url, timeout=25)
+            resp.raise_for_status()
+            soup = BeautifulSoup(resp.text, 'html.parser')
+
             jobs_data = []
-            soup = None
-            
-            # Method 1: Standard request with session
-            try:
-                response = session.get(page_url, timeout=25)
-                response.raise_for_status()
-                
-                soup = BeautifulSoup(response.text, 'html.parser')
-                logging.info(f"VacancyBox: Got response with {len(response.text)} characters")
-                
-                # Check if we got a proper page
-                title = soup.title.text if soup.title else "No title"
-                logging.info(f"VacancyBox: Page title: {title}")
-                
-                # Look for job content immediately
-                job_links = soup.find_all('a', href=lambda href: href and '/job/' in href)
-                all_links = soup.find_all('a', href=True)
-                
-                logging.info(f"VacancyBox: Found {len(job_links)} job links, {len(all_links)} total links")
-                
-                if len(all_links) == 0:
-                    # No links found - might be bot detection or need more time
-                    logging.warning("VacancyBox: No links found - possible bot detection")
-                    time.sleep(5)
-                    
-                    # Try again with different approach
-                    response = session.get(page_url, timeout=25)
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                    job_links = soup.find_all('a', href=lambda href: href and '/job/' in href)
-                    all_links = soup.find_all('a', href=True)
-                    logging.info(f"VacancyBox: Retry found {len(job_links)} job links, {len(all_links)} total links")
-                
-            except Exception as e:
-                logging.error(f"VacancyBox: Error in standard request: {e}")
-                soup = None
-            
-            # Method 2: If we still don't have content, try a different approach
-            if soup is None or len(soup.find_all('a', href=True)) == 0:
-                logging.info("VacancyBox: Attempting alternative scraping method")
-                
-                # Since our earlier fetch_webpage tool worked, let's extract the known job patterns
-                # from the content we can access and create real job entries
-                known_jobs = [
-                    {
-                        "title": "Data Science Intern",
-                        "company": "Action for Youth Foundation Trust",
-                        "location": "Harare",
-                        "posted_date": "August 10, 2025",
-                        "url": "https://vacancybox.co.zw/job/data-science-intern/"
-                    },
-                    {
-                        "title": "Underwriting Attaché",
-                        "company": "Champions Insurance Company (Private) Limited",
-                        "location": "Harare", 
-                        "posted_date": "August 10, 2025",
-                        "url": "https://vacancybox.co.zw/job/underwriting-attache/"
-                    },
-                    {
-                        "title": "Monitoring and Evaluation Assistant",
-                        "company": "Gonarezhou Conservation Trust",
-                        "location": "Gonarezhou",
-                        "posted_date": "August 10, 2025",
-                        "url": "https://vacancybox.co.zw/job/monitoring-and-evaluation-assistant/"
-                    },
-                    {
-                        "title": "Community Outreach Assistant",
-                        "company": "International Organization for Migration (IOM)",
-                        "location": "Harare",
-                        "posted_date": "August 10, 2025",
-                        "url": "https://vacancybox.co.zw/job/community-outreach-assistant/"
-                    },
-                    {
-                        "title": "Accessible Heritage Tourism Assistant",
-                        "company": "UNESCO",
-                        "location": "Harare",
-                        "posted_date": "August 10, 2025",
-                        "url": "https://vacancybox.co.zw/job/accessible-heritage-tourism-assistant/"
-                    },
-                    {
-                        "title": "Accounting Officer",
-                        "company": "Prevail Group",
-                        "location": "Harare",
-                        "posted_date": "August 8, 2025",
-                        "url": "https://vacancybox.co.zw/job/accounting-officer/"
-                    },
-                    {
-                        "title": "Recovery Officer", 
-                        "company": "CBZ",
-                        "location": "Harare",
-                        "posted_date": "August 8, 2025",
-                        "url": "https://vacancybox.co.zw/job/recovery-officer/"
-                    },
-                    {
-                        "title": "RockTools Attendant",
-                        "company": "Sandvik",
-                        "location": "Shurugwi",
-                        "posted_date": "August 8, 2025",
-                        "url": "https://vacancybox.co.zw/job/rocktools-attendant/"
-                    },
-                    {
-                        "title": "Sales and Trade Marketing Officer",
-                        "company": "Precision Recruitment International",
-                        "location": "Harare",
-                        "posted_date": "August 8, 2025",
-                        "url": "https://vacancybox.co.zw/job/sales-and-trade-marketing-officer/"
-                    },
-                    {
-                        "title": "Business Intelligence Manager",
-                        "company": "Baker's Inn",
-                        "location": "Harare",
-                        "posted_date": "August 8, 2025",
-                        "url": "https://vacancybox.co.zw/job/business-intelligence-manager/"
-                    }
-                ]
-                
-                # Process known jobs for current date (only recent ones)
-                for job_index, job_info in enumerate(known_jobs[:5]):  # Limit to 5 jobs for test mode
-                    try:
-                        # Generate job ID
-                        job_id = f"VB_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
-                        
-                        # Create expiry date based on posted date
-                        expiry_date = "N/A"
-                        if job_info["posted_date"]:
-                            try:
-                                posted_datetime = datetime.strptime(job_info["posted_date"], "%B %d, %Y")
-                                expiry_datetime = posted_datetime + timedelta(days=30)
-                                expiry_date = f"Expires {expiry_datetime.strftime('%B %d, %Y')}"
-                            except:
-                                expiry_date = "N/A"
-                        
-                        # Create description
-                        description = f"Job opportunity at {job_info['company']} posted on VacancyBox. Position available in {job_info['location']}. Full details available on website."
-                        
-                        # Classify job category
-                        category = classify_job_category(job_info["title"], description, job_info["company"])
-                        
-                        # Extract email from job detail page (limited to avoid overloading)
-                        apply_email = "Apply on VacancyBox"
-                        if job_index < 3:  # Only extract emails for first 3 jobs
-                            try:
-                                apply_email = self.extract_email_from_job_page(job_info["url"])
-                                time.sleep(1)
-                            except Exception as e:
-                                logging.warning(f"Could not extract email from {job_info['url']}: {e}")
-                        
-                        job_entry = {
-                            "id": job_id,
-                            "Job Title": clean_text(job_info["title"]),
-                            "title": clean_text(job_info["title"]),
-                            "Company": clean_text(job_info["company"]),
-                            "company": clean_text(job_info["company"]),
-                            "Location": clean_text(job_info["location"]),
-                            "Expiry Date": expiry_date,
-                            "closingDate": expiry_date,
-                            "Description": clean_text(description),
-                            "description": clean_text(description),
-                            "Category": category,
-                            "category": category,
-                            "Source Site": self.site_name,
-                            "sourceSite": self.site_name,
-                            "Apply Email": apply_email,
-                            "applyEmail": apply_email
-                        }
-                        
-                        jobs_data.append(job_entry)
-                        
-                    except Exception as e:
-                        logging.warning(f"Error processing VacancyBox known job {job_index}: {e}")
+            seen_urls = set()
+
+            # 1) Collect candidate job elements using many common selectors
+            selectors = [
+                'article', 'div.job-listing', 'div.job', 'li.job', 'div.listing-item',
+                'div.job-item', 'ul.jobs li', 'div.row.job', 'div.post', 'div[itemtype*="JobPosting"]'
+            ]
+            candidates = []
+            for sel in selectors:
+                try:
+                    found = soup.select(sel)
+                    if found:
+                        candidates.extend(found)
+                except Exception:
+                    continue
+
+            # 2) Also collect anchors that point to /job/ or contain "Posted on" nearby
+            anchors = soup.find_all('a', href=True)
+            for a in anchors:
+                href = a['href']
+                if '/job/' in href.lower() or '/jobs/' in href.lower() or 'vacancy' in href.lower():
+                    parent = a.find_parent()
+                    if parent:
+                        candidates.append(parent)
+                    else:
+                        candidates.append(a)
+
+            # 3) De-duplicate candidates (by text snippet)
+            unique = []
+            seen_text = set()
+            for elem in candidates:
+                snippet = elem.get_text(" ", strip=True)[:200]
+                if not snippet:
+                    continue
+                if snippet in seen_text:
+                    continue
+                seen_text.add(snippet)
+                unique.append(elem)
+
+            # 4) Parse each candidate into a job record
+            job_count = 0
+            for idx, elem in enumerate(unique):
+                if job_count >= 50:  # safety cap per page
+                    break
+                try:
+                    # Find the best anchor for this element
+                    a = elem.find('a', href=True)
+                    if not a:
+                        # fallback: search inside element for any anchor
+                        a = elem.select_one('a[href]')
+                    title = None
+                    company = "VacancyBox Employer"
+                    location = "Zimbabwe"
+                    posted_text = ""
+
+                    if a:
+                        href = a.get('href', '').strip()
+                        job_url = urljoin('https://vacancybox.co.zw', href)
+                        if job_url in seen_urls:
+                            continue
+                        seen_urls.add(job_url)
+                        # Title heuristics
+                        title = a.get_text(" ", strip=True)
+                    else:
+                        # fallback to headings inside element
+                        h = elem.find(['h1', 'h2', 'h3', 'h4'])
+                        title = h.get_text(" ", strip=True) if h else elem.get_text(" ", strip=True)[:80]
+                        job_url = None
+
+                    # Company heuristics
+                    # look for small, .company, .employer spans or the line following the title
+                    comp_tag = elem.find('small') or elem.find('span', class_=re.compile(r'(company|employer|org|org-name)', re.I))
+                    if comp_tag and comp_tag.get_text(strip=True):
+                        company = comp_tag.get_text(strip=True)
+                    else:
+                        # attempt to parse company from same line as title (common in VacancyBox)
+                        text_lines = [l.strip() for l in elem.get_text("\n", strip=True).splitlines() if l.strip()]
+                        if len(text_lines) >= 2:
+                            # often pattern: Title \n Company \n Location \n Posted on ...
+                            company_candidate = text_lines[1]
+                            if len(company_candidate) < 120 and not company_candidate.lower().startswith('posted'):
+                                company = company_candidate
+
+                    # Location & posted date heuristics
+                    elem_text = elem.get_text(" ", strip=True)
+                    # detect common city names
+                    for loc in ['Harare', 'Bulawayo', 'Mutare', 'Gweru', 'Masvingo', 'Chitungwiza', 'Zimbabwe']:
+                        if loc.lower() in elem_text.lower():
+                            location = loc
+                            break
+                    # posted date pattern
+                    m_post = re.search(r'Posted on\s+([A-Za-z]+\s+\d{1,2},?\s+\d{4})', elem_text, flags=re.I)
+                    if m_post:
+                        posted_text = m_post.group(1)
+                    else:
+                        m_post2 = re.search(r'Posted\s+([A-Za-z]+\s+\d{1,2},?\s+\d{4})', elem_text, flags=re.I)
+                        if m_post2:
+                            posted_text = m_post2.group(1)
+
+                    expiry_date = "N/A"
+                    if posted_text:
+                        try:
+                            posted_dt = datetime.strptime(posted_text.replace(',', ''), '%B %d %Y')
+                            expiry_dt = posted_dt + timedelta(days=30)
+                            expiry_date = f"Expires {expiry_dt.strftime('%B %d, %Y')}"
+                        except Exception:
+                            expiry_date = "N/A"
+
+                    description = elem_text[:400] if elem_text else "Full details on VacancyBox"
+
+                    # Only include if title looks valid
+                    if not title or len(title) < 3:
                         continue
-                
-                logging.info(f"VacancyBox: Created {len(jobs_data)} jobs from known listings")
-                
-            else:
-                # Method 3: We got content, try to parse it normally
-                for job_index, job_link in enumerate(job_links):
+
+                    # Classify and generate ID
+                    job_id = f"VB_{page_num:03d}_{idx+1:03d}_{datetime.now().strftime('%Y%m%d')}"
+                    category = classify_job_category(title, description, company)
+
+                    # Extract email only for first few jobs to limit load
+                    apply_email = "Apply on VacancyBox"
+                    if job_url and job_count < 5:
+                        try:
+                            apply_email = self.extract_email_from_job_page(job_url)
+                            time.sleep(0.6)
+                        except Exception:
+                            apply_email = "Apply on VacancyBox"
+
+                    jobs_data.append({
+                        "id": job_id,
+                        "Job Title": clean_text(title),
+                        "title": clean_text(title),
+                        "Company": clean_text(company),
+                        "company": clean_text(company),
+                        "Location": clean_text(location),
+                        "Expiry Date": expiry_date,
+                        "closingDate": expiry_date,
+                        "Description": clean_text(description),
+                        "description": clean_text(description),
+                        "Category": category,
+                        "category": category,
+                        "Source Site": self.site_name,
+                        "sourceSite": self.site_name,
+                        "Apply Email": apply_email,
+                        "applyEmail": apply_email
+                    })
+
+                    job_count += 1
+
+                except Exception as e:
+                    logging.warning(f"VacancyBox: error parsing candidate elem: {e}")
+                    continue
+
+            # final fallback: if still empty, try earlier job_links extraction (keeps compatibility)
+            if not jobs_data:
+                job_links = soup.find_all('a', href=lambda href: href and '/job/' in href)
+                for i, jl in enumerate(job_links[:20]):
                     try:
-                        # Process the job links we found
-                        job_url = job_link.get('href', '')
-                        if job_url.startswith('/'):
-                            job_url = 'https://vacancybox.co.zw' + job_url
-                        elif not job_url.startswith('http'):
-                            continue
-                        
-                        link_text = job_link.get_text(strip=True)
-                        if len(link_text) < 15:
-                            continue
-                        
-                        # Parse job information (simplified version)
-                        parts = link_text.split()
-                        if len(parts) >= 2:
-                            title = ' '.join(parts[:3]) if len(parts) >= 3 else ' '.join(parts)
-                            company = parts[0] if parts else "VacancyBox Employer"
-                        else:
-                            title = link_text
-                            company = "VacancyBox Employer"
-                        
-                        job_id = f"VB_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
-                        description = f"Job posted on VacancyBox. Full details available on website."
-                        category = classify_job_category(title, description, company)
-                        
-                        job_entry = {
+                        href = jl.get('href')
+                        title = jl.get_text(strip=True) or "Job Opportunity"
+                        job_url = urljoin('https://vacancybox.co.zw', href)
+                        job_id = f"VB_{page_num:03d}_{i+1:03d}_{datetime.now().strftime('%Y%m%d')}"
+                        category = classify_job_category(title, "Full details on VacancyBox", "VacancyBox Employer")
+                        jobs_data.append({
                             "id": job_id,
                             "Job Title": clean_text(title),
                             "title": clean_text(title),
-                            "Company": clean_text(company),
-                            "company": clean_text(company),
+                            "Company": "VacancyBox Employer",
+                            "company": "VacancyBox Employer",
                             "Location": "Zimbabwe",
                             "Expiry Date": "N/A",
                             "closingDate": "N/A",
-                            "Description": clean_text(description),
-                            "description": clean_text(description),
+                            "Description": clean_text("Full details on VacancyBox"),
+                            "description": clean_text("Full details on VacancyBox"),
                             "Category": category,
                             "category": category,
                             "Source Site": self.site_name,
                             "sourceSite": self.site_name,
                             "Apply Email": "Apply on VacancyBox",
                             "applyEmail": "Apply on VacancyBox"
-                        }
-                        
-                        jobs_data.append(job_entry)
-                        
-                        if len(jobs_data) >= 10:  # Limit for test mode
-                            break
-                            
-                    except Exception as e:
-                        logging.warning(f"Error processing VacancyBox job link {job_index}: {e}")
+                        })
+                    except Exception:
                         continue
-            
-            # If still no jobs, create a single status job
-            if not jobs_data:
-                job_id = f"VB_{page_num:03d}_001_{datetime.now().strftime('%Y%m%d')}"
-                jobs_data.append({
-                    "id": job_id,
-                    "Job Title": "VacancyBox Jobs Available",
-                    "title": "VacancyBox Jobs Available",
-                    "Company": "VacancyBox",
-                    "company": "VacancyBox",
-                    "Location": "Zimbabwe",
-                    "Expiry Date": "N/A",
-                    "closingDate": "N/A",
-                    "Description": "VacancyBox contains job listings that may require direct website access. Visit vacancybox.co.zw for current opportunities.",
-                    "description": "VacancyBox contains job listings that may require direct website access. Visit vacancybox.co.zw for current opportunities.",
-                    "Category": "Other",
-                    "category": "Other",
-                    "Source Site": self.site_name,
-                    "sourceSite": self.site_name,
-                    "Apply Email": "Apply on VacancyBox",
-                    "applyEmail": "Apply on VacancyBox"
-                })
-            
-            logging.info(f"VacancyBox: Successfully scraped {len(jobs_data)} jobs from page {page_num}")
+
+            logging.info(f"VacancyBox: scraped {len(jobs_data)} jobs from page {page_num}")
             return jobs_data, soup
-            
+
         except Exception as e:
             logging.error(f"Error scraping VacancyBox page {page_num}: {e}")
             return [], None
 
 class RecruitmentMatterScraper(JobScraper):
-    """Scraper for https://www.recruitmentmattersafrica.com/careers/"""
+    """Scraper for https://www.recruitmentmattersafrica.com/careers/?job_id="""
     
     def __init__(self):
-        super().__init__("RecruitmentMatters", "https://www.recruitmentmattersafrica.com/careers/")
+        super().__init__("RecruitmentMatters", "https://www.recruitmentmattersafrica.com/careers/?job_id=")
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
