@@ -29,32 +29,69 @@ def clean_text(text):
     return text.strip()
 
 def parse_expiry_date(expiry_text):
-    """Parse expiry date text and return datetime object."""
-    if not expiry_text or expiry_text == "N/A":
-        return None
-    
+    """Return a datetime.date for an expiry string or posted-date string.
+    - Handles formats like 'Expires August 31, 2025', 'Posted on August 17, 2025'
+    - If only a posted date is present, returns posted + 30 days
+    - Returns None when no reliable date can be parsed
+    """
     try:
-        # Extract date from text like "Expires 24 Aug 2025"
-        if "expires" in expiry_text.lower():
-            date_part = expiry_text.lower().replace("expires", "").strip()
-            # Handle different date formats
-            if re.match(r'\d{1,2}\s+\w+\s+\d{4}', date_part):
-                return datetime.strptime(date_part, '%d %b %Y')
-            elif re.match(r'\d{1,2}\s+\w+\s+\d{2}', date_part):
-                return datetime.strptime(date_part, '%d %b %y')
-    except Exception as e:
-        logging.warning(f"Could not parse date: {expiry_text} - {e}")
-    
+        if not expiry_text or not isinstance(expiry_text, str):
+            return None
+
+        text = expiry_text.strip()
+
+        # Remove common prefixes
+        text = re.sub(r'^(expires|expiry|closing|closing date)[:\s-]*', '', text, flags=re.I).strip()
+
+        # If string contains 'posted', try to extract posted date and treat expiry = posted + 30 days
+        if re.search(r'posted', text, flags=re.I):
+            m = re.search(r'([A-Za-z]{3,9}\s+\d{1,2},?\s+\d{4})', text)
+            if m:
+                for fmt in ("%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y"):
+                    try:
+                        posted_dt = datetime.strptime(m.group(1).replace(',', '').strip(), fmt.replace(',', ''))
+                        return (posted_dt + timedelta(days=30)).date()
+                    except Exception:
+                        continue
+
+        # Try direct date patterns in the text
+        # e.g. "August 31, 2025", "31 August 2025", "2025-08-31"
+        # Try common formats
+        for fmt in ("%B %d, %Y", "%b %d, %Y", "%d %B %Y", "%d %b %Y", "%Y-%m-%d"):
+            try:
+                clean = re.sub(r'[^\w\s\-\,]', '', text)
+                dt = datetime.strptime(clean.replace(',', '').strip(), fmt.replace(',', ''))
+                return dt.date()
+            except Exception:
+                continue
+
+        # Generic search for "Month D, YYYY" pattern if above failed
+        m = re.search(r'([A-Za-z]{3,9}\s+\d{1,2},?\s+\d{4})', text)
+        if m:
+            for fmt in ("%B %d, %Y", "%b %d, %Y"):
+                try:
+                    dt = datetime.strptime(m.group(1).replace(',', '').strip(), fmt.replace(',', ''))
+                    return dt.date()
+                except Exception:
+                    continue
+
+    except Exception:
+        pass
+
     return None
 
+
 def is_job_current(expiry_text):
-    """Check if job expiry date is today or in the future."""
-    expiry_date = parse_expiry_date(expiry_text)
-    if expiry_date is None:
-        return True  # Include jobs with no expiry date
-    
-    today = datetime.now().date()
-    return expiry_date.date() >= today
+    """Return True only if the parsed expiry date is today or in the future.
+    Be conservative: if we cannot parse an expiry reliably, return False.
+    """
+    try:
+        expiry_date = parse_expiry_date(expiry_text)
+        if not expiry_date:
+            return False
+        return expiry_date >= datetime.now().date()
+    except Exception:
+        return False
 
 def classify_job_category(title, description, company):
     """Classify job into categories using weighted keyword analysis and context."""
@@ -533,7 +570,7 @@ class JobsZimbabweScraper(JobScraper):
             return "Apply on Jobs Zimbabwe"
 
     def scrape_page(self, url, page_num=1):
-        """Scrape jobs from Jobs Zimbabwe."""
+        """Scrape jobs from Jobs Zimbabwe. Only include jobs whose expiry >= today."""
         try:
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -550,19 +587,16 @@ class JobsZimbabweScraper(JobScraper):
             
             jobs_data = []
             
-            # Look for job entries - Jobs Zimbabwe uses h3 headings for job titles
+            # Look for job entries - Jobs Zimbabwe often uses h3 headings for job titles
             job_headings = soup.find_all('h3')
             
             for job_index, heading in enumerate(job_headings):
                 try:
-                    # Extract job title from h3 text
                     title_text = heading.get_text(strip=True)
-                    
-                    # Skip if this doesn't look like a job title
                     if not title_text or len(title_text) < 5:
                         continue
                     
-                    # Extract title and company (format: "JOB TITLE – Company Name")
+                    # Extract title and company if present
                     if ' – ' in title_text:
                         title, company = title_text.split(' – ', 1)
                         title = title.strip()
@@ -571,71 +605,81 @@ class JobsZimbabweScraper(JobScraper):
                         title = title_text
                         company = "N/A"
                     
-                    # Look for job link
+                    # Job detail url (if present)
                     job_link = heading.find('a')
                     job_url = job_link.get('href', '') if job_link else ""
                     
-                    # Find the parent container to get additional info
+                    # Parent container text to find date/location
                     parent = heading.find_parent()
+                    date_text = ""
+                    location = "Zimbabwe"
                     if parent:
-                        # Look for date information
-                        date_text = ""
-                        location = "Zimbabwe"  # Default location
-                        
-                        # Search for text patterns that indicate date and location
-                        parent_text = parent.get_text()
-                        
-                        # Look for date patterns like "August 15, 2025"
-                        date_match = re.search(r'\b\w+\s+\d{1,2},?\s+\d{4}\b', parent_text)
+                        parent_text = parent.get_text(" ", strip=True)
+                        # Search for explicit expiry or posted dates
+                        # Look for "Posted on ..." or date-like strings near the heading
+                        date_match = re.search(r'Posted on\s+([A-Za-z]{3,9}\s+\d{1,2},?\s+\d{4})', parent_text, flags=re.I)
+                        if not date_match:
+                            date_match = re.search(r'([A-Za-z]{3,9}\s+\d{1,2},?\s+\d{4})', parent_text)
                         if date_match:
-                            date_text = date_match.group()
+                            date_text = date_match.group(0).strip()
                         
-                        # Look for location names
-                        location_words = ['Harare', 'Bulawayo', 'Mutare', 'Gweru', 'Masvingo', 'Zimbabwe']
+                        # Location detection
+                        location_words = ['Harare', 'Bulawayo', 'Mutare', 'Gweru', 'Masvingo', 'Chitungwiza', 'Zimbabwe']
                         for loc in location_words:
-                            if loc in parent_text:
+                            if re.search(r'\b' + re.escape(loc) + r'\b', parent_text, flags=re.I):
                                 location = loc
                                 break
                     
-                    # Convert date to expiry format
-                    expiry_date = f"Expires {date_text}" if date_text else "N/A"
+                    # Determine whether job is current (expiry >= today)
+                    # Prefer explicit expiry strings, else treat found date as posted date and compute posted+30
+                    include_job = False
+                    expiry_display = "N/A"
+                    if date_text:
+                        # Try parsing expiry (parse_expiry_date will treat 'posted' as posted+30)
+                        parsed_expiry = parse_expiry_date(date_text)
+                        if parsed_expiry and parsed_expiry >= datetime.now().date():
+                            include_job = True
+                            expiry_display = f"Expires {parsed_expiry.strftime('%B %d, %Y')}"
+                        else:
+                            include_job = False
+                    else:
+                        # No date found => be conservative and skip
+                        include_job = False
+                    
+                    if not include_job:
+                        continue
                     
                     description = f"Job posted on Jobs Zimbabwe. Full details available on website."
                     
-                    # Generate job ID
                     job_id = f"JZ_{page_num:03d}_{job_index+1:03d}_{datetime.now().strftime('%Y%m%d')}"
                     
-                    # Classify job category
                     category = classify_job_category(title, description, company)
                     
-                    # Only include if it looks like a valid job
-                    if title and title != "N/A":
-                        # Get email (but don't delay too much in test mode)
-                        apply_email = "Apply on Jobs Zimbabwe"
-                        if job_url:
-                            apply_email = self.extract_email_from_job_page(job_url)
-                        
-                        jobs_data.append({
-                            "id": job_id,
-                            "Job Title": clean_text(title),
-                            "title": clean_text(title),
-                            "Company": clean_text(company),
-                            "company": clean_text(company),
-                            "Location": clean_text(location),
-                            "Expiry Date": clean_text(expiry_date),
-                            "closingDate": clean_text(expiry_date),
-                            "Description": clean_text(description),
-                            "description": clean_text(description),
-                            "Category": category,
-                            "category": category,
-                            "Source Site": self.site_name,
-                            "sourceSite": self.site_name,
-                            "Apply Email": apply_email,
-                            "applyEmail": apply_email
-                        })
-                        
-                        # Small delay between email extractions
-                        time.sleep(0.3)
+                    # Get email (but don't delay too much)
+                    apply_email = "Apply on Jobs Zimbabwe"
+                    if job_url:
+                        apply_email = self.extract_email_from_job_page(job_url)
+                    
+                    jobs_data.append({
+                        "id": job_id,
+                        "Job Title": clean_text(title),
+                        "title": clean_text(title),
+                        "Company": clean_text(company),
+                        "company": clean_text(company),
+                        "Location": clean_text(location),
+                        "Expiry Date": clean_text(expiry_display),
+                        "closingDate": clean_text(expiry_display),
+                        "Description": clean_text(description),
+                        "description": clean_text(description),
+                        "Category": category,
+                        "category": category,
+                        "Source Site": self.site_name,
+                        "sourceSite": self.site_name,
+                        "Apply Email": apply_email,
+                        "applyEmail": apply_email
+                    })
+                    
+                    time.sleep(0.3)
                     
                 except Exception as e:
                     logging.warning(f"Error processing Jobs Zimbabwe job {job_index}: {e}")
@@ -817,11 +861,8 @@ class ZimboJobsScraper(JobScraper):
                             break
                         
                     except Exception as e:
-                        logging.warning(f"Error processing ZimboJobs element: {e}")
+                        logging.warning(f"Error processing ZimboJobs job {job_index}: {e}")
                         continue
-                
-                if job_count >= 10:
-                    break
             
             # If still no jobs found, create a fallback entry to show the site is being checked
             if not jobs_data:
@@ -966,7 +1007,7 @@ class VacancyBoxScraper(JobScraper):
             
             headers = {
                 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
                 'Accept-Language': 'en-US,en;q=0.9',
                 'Referer': 'https://vacancybox.co.zw/'
             }
@@ -1159,11 +1200,11 @@ class VacancyBoxScraper(JobScraper):
                             location = loc
                             break
                     # posted date pattern
-                    m_post = re.search(r'Posted on\s+([A-Za-z]+\s+\d{1,2},?\s+\d{4})', elem_text, flags=re.I)
+                    m_post = re.search(r'Posted on\s+([A-Za-z]+\s+\d{1,2},? \d{4})', elem_text, flags=re.I)
                     if m_post:
                         posted_text = m_post.group(1)
                     else:
-                        m_post2 = re.search(r'Posted\s+([A-Za-z]+\s+\d{1,2},?\s+\d{4})', elem_text, flags=re.I)
+                        m_post2 = re.search(r'Posted\s+([A-Za-z]+\s+\d{1,2},? \d{4})', elem_text, flags=re.I)
                         if m_post2:
                             posted_text = m_post2.group(1)
 
@@ -1259,10 +1300,11 @@ class VacancyBoxScraper(JobScraper):
             return [], None
 
 class RecruitmentMatterScraper(JobScraper):
-    """Scraper for https://www.recruitmentmattersafrica.com/careers/?job_id="""
+    """Scraper for https://www.recruitmentmattersafrica.com/careers/"""
     
     def __init__(self):
-        super().__init__("RecruitmentMatters", "https://www.recruitmentmattersafrica.com/careers/?job_id=")
+        # Use the clean careers listing URL (no query string)
+        super().__init__("RecruitmentMatters", "https://www.recruitmentmattersafrica.com/careers/")
         self.headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
             'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
@@ -1272,22 +1314,18 @@ class RecruitmentMatterScraper(JobScraper):
         """Extract total number of pages from pagination (robust)."""
         try:
             max_page = 1
-            # common WP pagination containers
-            pagination = soup.find_all('a', href=True)
-            for a in pagination:
+            for a in soup.find_all('a', href=True):
                 txt = a.get_text(strip=True)
                 href = a['href']
                 if txt.isdigit():
                     max_page = max(max_page, int(txt))
-                # /page/2/ style
                 m = re.search(r'/page/(\d+)/', href)
                 if m:
                     max_page = max(max_page, int(m.group(1)))
-                # ?paged= style
                 m2 = re.search(r'pag(?:e|ed)=(\d+)', href)
                 if m2:
                     max_page = max(max_page, int(m2.group(1)))
-            return min(max_page, 50)
+            return min(max_page, 100)
         except Exception as e:
             logging.warning(f"RecruitmentMatters: could not determine pages: {e}")
             return 1
@@ -1299,15 +1337,13 @@ class RecruitmentMatterScraper(JobScraper):
             r = requests.get(job_url, headers=self.headers, timeout=12)
             r.raise_for_status()
             soup = BeautifulSoup(r.text, 'html.parser')
-            # 1) mailto links
-            mailtos = soup.find_all('a', href=re.compile(r'^mailto:', re.I))
-            for m in mailtos:
+            # mailto links first
+            for m in soup.find_all('a', href=re.compile(r'^mailto:', re.I)):
                 href = m.get('href', '')
                 email = re.sub(r'^mailto:', '', href, flags=re.I).split('?')[0].strip()
-                if email:
-                    if 'noreply' not in email.lower():
-                        return email
-            # 2) regex in visible text (including obfuscated)
+                if email and 'noreply' not in email.lower():
+                    return email.lower()
+            # regex in visible text (including obfuscated)
             page_text = soup.get_text(separator=' ')
             patterns = [
                 r'\b[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}\b',
@@ -1316,9 +1352,7 @@ class RecruitmentMatterScraper(JobScraper):
             for p in patterns:
                 found = re.findall(p, page_text, flags=re.I)
                 if found:
-                    # clean obfuscated
-                    candidate = found[0].replace(' ', '').replace('[at]', '@').replace('[dot]', '.')
-                    candidate = candidate.lower()
+                    candidate = found[0].replace(' ', '').replace('[at]', '@').replace('[dot]', '.').lower()
                     if not any(x in candidate for x in ('noreply', 'no-reply', 'donotreply')):
                         return candidate
             return "Apply on RecruitmentMatters"
@@ -1327,103 +1361,164 @@ class RecruitmentMatterScraper(JobScraper):
             return "Apply on RecruitmentMatters"
 
     def scrape_page(self, url, page_num=1):
-        """Scrape jobs from RecruitmentMatters careers page (list -> detail)."""
+        """Scrape jobs from RecruitmentMatters careers page (list -> detail).
+        Improved link heuristics + debug logging when links are scarce.
+        """
         try:
-            # build page url: try /page/{n}/ first then query param fallback
-            if page_num > 1:
+            params = {'paged': page_num} if page_num > 1 else None
+            r = requests.get(self.base_url, headers=self.headers, params=params, timeout=15)
+            if r.status_code != 200 or not r.text:
                 page_url = urljoin(self.base_url, f'page/{page_num}/')
-            else:
-                page_url = self.base_url
-
-            r = requests.get(page_url, headers=self.headers, timeout=15)
+                r = requests.get(page_url, headers=self.headers, timeout=15)
             r.raise_for_status()
             soup = BeautifulSoup(r.text, 'html.parser')
 
             jobs_data = []
             found_links = []
+            seen_urls = set()
 
-            # Find candidate job link selectors (flexible)
-            # articles, h2/h3 titles with links, job list items
-            selectors = [
-                ('article', 'a'),
-                ('div.job', 'a'),
-                ('li.job', 'a'),
-                ('h2 a', None),
-                ('h3 a', None),
-                ('a', None)
-            ]
-
-            # Collect unique candidate links that look like job posts (contain 'careers' or 'career' or '/jobs/' or '/job/')
-            for sel, child in selectors:
-                elems = soup.select(sel) if child is None else soup.select(f"{sel} {child}")
-                for e in elems:
-                    a = e if e.name == 'a' else e.find('a', href=True)
-                    if not a:
-                        continue
-                    href = a.get('href')
-                    text = a.get_text(strip=True)
-                    if not href or not text:
-                        continue
-                    # filter likely job links
-                    if any(keyword in href.lower() for keyword in ['/careers', '/career', '/job', '/vacancy', '/jobs/']) or len(text) > 20:
-                        full = urljoin(self.base_url, href)
-                        if full not in found_links:
-                            found_links.append(full)
-
-            # If none found via heuristics, try all anchors but filter by length & keywords
-            if not found_links:
-                for a in soup.find_all('a', href=True):
-                    href = a['href']
-                    text = a.get_text(strip=True)
-                    if not text or len(text) < 10:
-                        continue
-                    if any(k in href.lower() for k in ['/careers', '/career', '/job', '/vacancy', '/jobs/']) or any(k in text.lower() for k in ['apply', 'vacancy', 'position', 'career']):
-                        full = urljoin(self.base_url, href)
-                        if full not in found_links:
-                            found_links.append(full)
-
-            # Limit reasonable number per page
-            if not page_num: 
-                limit = 10
-            else:
-                limit = 25
-            found_links = found_links[:limit]
-
-            for idx, job_url in enumerate(found_links):
+            # --- Debug: log anchors found on the page (href, text, parent classes) ---
+            anchors = soup.find_all('a', href=True)
+            logging.info(f"RecruitmentMatters: found {len(anchors)} anchors on page {page_num}")
+            for i, a in enumerate(anchors[:120]):
+                parent = a.find_parent()
+                parent_info = ""
                 try:
-                    # fetch detail page
+                    parent_info = f"{parent.name} {parent.get('class') or parent.get('id')}" if parent else ""
+                except Exception:
+                    parent_info = ""
+                logging.debug(f"RM anchor[{i}]: href={a['href']!r} text={a.get_text(strip=True)[:80]!r} parent={parent_info}")
+
+            # --- Collect candidate anchors with expanded heuristics ---
+            def anchor_likely_job(a):
+                href = a.get('href') or ""
+                text = (a.get_text(" ", strip=True) or "").strip()
+                href_l = href.lower()
+                text_l = text.lower()
+
+                # direct heuristics
+                if any(k in href_l for k in ['job_id=', 'jobid=', '/careers', '/career', '/vacancy', '/jobs/', '/job/']):
+                    return True
+                if any(k in text_l for k in ['apply', 'vacancy', 'position', 'career', 'job', 'job code', 'job title']):
+                    return True
+                # long descriptive anchors likely to be posting links
+                if len(text) >= 25:
+                    return True
+
+                # check parent/grandparent for job-related classes/ids
+                for depth in range(3):
+                    parent = a
+                    try:
+                        for _ in range(depth + 1):
+                            parent = parent.find_parent() or parent
+                        pid = (parent.get('id') or "") if getattr(parent, "get", None) else ""
+                        pcls = " ".join(parent.get('class') or []) if getattr(parent, "get", None) else ""
+                        combined = f"{pid} {pcls}".lower()
+                        if any(k in combined for k in ['job', 'vacancy', 'career', 'position', 'listing', 'result', 'search', 'post']):
+                            return True
+                    except Exception:
+                        continue
+                return False
+
+            # First pass: anchors that match heuristics
+            for a in anchors:
+                try:
+                    if anchor_likely_job(a):
+                        full = urljoin(self.base_url, a['href'])
+                        if full not in seen_urls and full.startswith(('http://', 'https://')):
+                            seen_urls.add(full)
+                            found_links.append((full, a.get_text(" ", strip=True)))
+                except Exception:
+                    continue
+
+            # Second pass: structured data (JobPosting)
+            if not found_links:
+                for script in soup.find_all('script', type='application/ld+json'):
+                    try:
+                        data = json.loads(script.string or "{}")
+                        if isinstance(data, dict) and data.get('@type') == 'JobPosting':
+                            url_field = data.get('url') or data.get('sameAs') or data.get('link')
+                            if url_field:
+                                full = urljoin(self.base_url, url_field)
+                                if full not in seen_urls:
+                                    seen_urls.add(full)
+                                    found_links.append((full, data.get('title') or "Job Posting"))
+                        elif isinstance(data, list):
+                            for item in data:
+                                if isinstance(item, dict) and item.get('@type') == 'JobPosting':
+                                    url_field = item.get('url') or item.get('sameAs')
+                                    if url_field:
+                                        full = urljoin(self.base_url, url_field)
+                                        if full not in seen_urls:
+                                            seen_urls.add(full)
+                                            found_links.append((full, item.get('title') or "Job Posting"))
+                    except Exception:
+                        continue
+
+            # Third pass: fallback to anchors with longer text if still few links
+            if len(found_links) < 5:
+                for a in anchors:
+                    try:
+                        text = a.get_text(" ", strip=True) or ""
+                        href = a['href']
+                        if len(text) >= 12 and ('job' in href.lower() or 'careers' in href.lower() or 'vacancy' in text.lower() or 'apply' in text.lower()):
+                            full = urljoin(self.base_url, href)
+                            if full not in seen_urls and full.startswith(('http://','https://')):
+                                seen_urls.add(full)
+                                found_links.append((full, text))
+                    except Exception:
+                        continue
+
+            # Dedupe and cap
+            dedup = []
+            seen = set()
+            for full, txt in found_links:
+                if full in seen:
+                    continue
+                seen.add(full)
+                dedup.append((full, txt))
+            found_links = dedup[:200]  # increased limit
+
+            logging.info(f"RecruitmentMatters: collected {len(found_links)} candidate links on page {page_num}")
+
+            # If still only 0-1 links, save debug dump to file for inspection
+            if len(found_links) <= 1:
+                try:
+                    dump_path = f"rm_anchors_page{page_num}_debug.html"
+                    with open(dump_path, 'w', encoding='utf-8') as f:
+                        f.write(r.text)
+                    logging.warning(f"RecruitmentMatters: only {len(found_links)} links found — saved page HTML to {dump_path} for debugging")
+                except Exception as e:
+                    logging.warning(f"RecruitmentMatters: could not write debug dump: {e}")
+
+            # Fetch details for each candidate link
+            for idx, (job_url, anchor_text) in enumerate(found_links):
+                try:
                     jr = requests.get(job_url, headers=self.headers, timeout=12)
                     jr.raise_for_status()
                     jsoup = BeautifulSoup(jr.text, 'html.parser')
 
                     # Title
-                    title = None
-                    title_tag = jsoup.find(['h1', 'h2', 'h3'], text=True)
-                    if title_tag:
-                        title = title_tag.get_text(strip=True)
-                    if not title:
-                        # fallback: use link text from list page (if available)
-                        title = jsoup.title.string.strip() if jsoup.title and jsoup.title.string else "Job Opportunity"
+                    title_tag = jsoup.find(['h1', 'h2', 'h3'])
+                    title = title_tag.get_text(strip=True) if title_tag and title_tag.get_text(strip=True) else (anchor_text or "Job Opportunity")
 
-                    # Company heuristics: look for labels like "Company:" or meta tags
+                    # Company
                     company = "N/A"
-                    # check for meta
                     meta_org = jsoup.find('meta', {'property': 'og:site_name'}) or jsoup.find('meta', {'name': 'author'})
                     if meta_org and meta_org.get('content'):
                         company = meta_org['content'].strip()
-                    # search plain text for "Company:" or "Employer:"
                     page_text = jsoup.get_text(separator='\n')
-                    m_comp = re.search(r'(Company|Employer|Organisation|Organization)[:\s\-]+([^\n\r]{2,80})', page_text, flags=re.I)
+                    m_comp = re.search(r'(Company|Employer|Organisation|Organization)\s*[:\-]\s*([^\n\r]{2,80})', page_text, flags=re.I)
                     if m_comp:
                         company = m_comp.group(2).strip()
 
-                    # Location heuristics
-                    location = "Zimbabwe"
-                    m_loc = re.search(r'(Location)[:\s\-]+([^\n\r]{2,60})', page_text, flags=re.I)
+                    # Location
+                    location = "N/A"
+                    m_loc = re.search(r'(Location)\s*[:\-]\s*([^\n\r]{2,60})', page_text, flags=re.I)
                     if m_loc:
                         location = m_loc.group(2).strip()
 
-                    # Posted date / expiry: find date patterns
+                    # Posted/expiry
                     posted_date = None
                     m_date = re.search(r'([A-Z][a-z]+ \d{1,2},? \d{4})', page_text)
                     if m_date:
@@ -1437,20 +1532,15 @@ class RecruitmentMatterScraper(JobScraper):
                         except:
                             expiry_date = "N/A"
 
-                    # Description: use main content areas
-                    content_container = jsoup.find('div', class_=re.compile(r'(entry-content|post-content|job-description)', re.I)) \
-                                         or jsoup.find('div', id=re.compile(r'(content|main)', re.I)) \
-                                         or jsoup.find('article')
-                    description = "Full details on website."
-                    if content_container:
-                        description = content_container.get_text(separator=' ', strip=True)[:400]
+                    # Description
+                    content_container = jsoup.find('div', class_=re.compile(r'(entry-content|post-content|job-description|vacancy-description)', re.I)) \
+                                        or jsoup.find('article') \
+                                        or jsoup.find('div', id=re.compile(r'(content|main)', re.I))
+                    description = content_container.get_text(separator=' ', strip=True)[:500] if content_container else (anchor_text or "See full details on site")
 
-                    # Email extraction (use dedicated method)
                     apply_email = self.extract_email_from_job_page(job_url)
 
-                    # Generate ID
                     job_id = f"RM_{page_num:03d}_{idx+1:03d}_{datetime.now().strftime('%Y%m%d')}"
-
                     category = classify_job_category(title or "", description or "", company or "")
 
                     jobs_data.append({
@@ -1472,8 +1562,7 @@ class RecruitmentMatterScraper(JobScraper):
                         "applyEmail": apply_email
                     })
 
-                    # Respectful delay
-                    time.sleep(0.5)
+                    time.sleep(0.35)
                 except Exception as e:
                     logging.warning(f"RecruitmentMatters: error processing {job_url}: {e}")
                     continue
@@ -1495,9 +1584,9 @@ def scrape_multiple_sites(test_mode=False):
     scrapers = [
         VacancyMailScraper(),
         JobsZimbabweScraper(),
-        ZimboJobsScraper(),
-        VacancyBoxScraper(),
-        RecruitmentMatterScraper()
+        # ZimboJobsScraper(),
+        # VacancyBoxScraper(),
+        # RecruitmentMatterScraper()
     ]
     
     all_jobs_data = []
