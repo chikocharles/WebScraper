@@ -1,6 +1,5 @@
-README for Job Scraper
-Overview
-This project is a web scraper designed to extract job listings from the Vacancy Mail website (https://vacancymail.co.zw/jobs/). It collects relevant job information from ALL available pages and saves only current job listings (jobs that expire today or in the future) to a CSV file for further analysis or use.
+*Job Scraper Overview*
+This project is a web scraper designed to extract job listings from the Vacancy websites like (https://vacancymail.co.zw/jobs/) and (https://jobszimbabwe.co.zw/). It collects relevant job information from ALL available pages and saves only current job listings (jobs that expire today or in the future) to a CSV file for further analysis or use.
 
 Features
 ✅ Scrapes job titles, company names, locations, expiry dates, and descriptions from ALL pages (not just the first page)
