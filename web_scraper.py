@@ -1584,9 +1584,9 @@ def scrape_multiple_sites(test_mode=False):
     scrapers = [
         VacancyMailScraper(),
         JobsZimbabweScraper(),
-        # ZimboJobsScraper(),
-        # VacancyBoxScraper(),
-        # RecruitmentMatterScraper()
+        ZimboJobsScraper(),
+        VacancyBoxScraper(),
+        RecruitmentMatterScraper()
     ]
     
     all_jobs_data = []
